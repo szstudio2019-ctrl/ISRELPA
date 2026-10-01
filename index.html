@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ISRALPA | ארגון טייסי חברות התעופה בישראל</title>
+<link rel="icon" type="image/svg+xml" href="MATIRIALS/ISRALPA-mark.svg" />
+<meta name="description" content="ארגון טייסי חברות התעופה בישראל – ייצוג מקצועי, בטיחות טיסה ורווחת הטייסים." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<script>
+  // Motion is opt-in: only when the visitor allows motion. Safety net removes it if GSAP never boots.
+  (function () {
+    var d = document.documentElement;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]static(&|$)/.test(location.search)) return;
+    d.classList.add('motion', 'is-loading');
+    setTimeout(function () { if (!window.__animReady) d.classList.remove('motion', 'is-loading'); }, 4000);
+  })();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['"Open Sans"', 'system-ui', 'sans-serif'], latin: ['"Open Sans"', 'system-ui', 'sans-serif'] },
+        colors: {
+          navy: { 950: '#04162b', 900: '#071f3d', 800: '#0b2d55', 700: '#0f3d70' },
+          sky:  { brand: '#1167b1', light: '#3fa9f5', mist: '#e8f3fc' },
+          ink:  { 900: '#0f1b2a', 600: '#4a5a6e', 400: '#8795a7', 200: '#dbe2ea', 100: '#eef2f6', 50: '#f6f8fb' }
+        },
+        boxShadow: {
+          card: '0 1px 2px rgba(15,27,42,.04), 0 8px 24px -8px rgba(15,27,42,.10)',
+          lift: '0 2px 4px rgba(15,27,42,.05), 0 24px 48px -16px rgba(17,103,177,.28)'
+        }
+      }
+    }
+  };
+</script>
+<style>
+  html, body { overflow-x: clip; }
+  body { font-family: 'Open Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+  /* Hero sky */
+  .hero-sky { background: #071f3d; }
+  .hero-media { position: absolute; inset: 0; overflow: hidden; will-change: transform, clip-path; }
+  /* Real aircraft photo – plane sits in the open left side, headline on the right */
+  .hero-photo {
+    position: absolute; top: 0; height: 100%; width: 100%; max-width: none; left: -16%;
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, #000 34%); mask-image: linear-gradient(to left, transparent 0%, #000 34%);
+    object-fit: cover; object-position: 30% 50%;
+    transform-origin: 35% 45%;
+    animation: heroGrow 20s cubic-bezier(.45,.05,.55,.95) infinite alternate; /* slow Ken-Burns growth toward the jet */
+    will-change: transform;
+  }
+  @media (max-width: 767px) { .hero-photo { width: 100%; left: 0; top: auto; bottom: 0; height: 52%; object-position: 34% 50%; transform-origin: 40% 50%; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%); mask-image: linear-gradient(to bottom, transparent 0%, #000 30%); } }
+  @keyframes heroGrow {
+    from { transform: scale(1); }
+    to   { transform: scale(1.22); }
+  }
+  .hero-shade {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(to left, rgba(4,22,43,.9) 0%, rgba(7,31,61,.74) 36%, rgba(11,45,85,.32) 52%, transparent 70%),
+      linear-gradient(to bottom, rgba(4,22,43,.55) 0%, transparent 22%, transparent 70%, rgba(17,103,177,.35) 100%);
+  }
+  @media (max-width: 767px) {
+    .hero-sky { background: linear-gradient(180deg, #04162b 0%, #0b2d55 45%, #1b6fc0 100%); }
+    .hero-shade { background: linear-gradient(to bottom, rgba(4,22,43,.35) 0%, transparent 18%); }
+  }
+  .cloud {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,.55) 0%, rgba(255,255,255,.18) 40%, transparent 70%);
+    filter: blur(18px); will-change: transform;
+    animation: drift linear infinite;
+  }
+  @keyframes drift { from { transform: translateX(-30vw); } to { transform: translateX(130vw); } }
+
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Header */
+  .site-header { transition: background-color .35s ease, box-shadow .35s ease, color .35s ease; }
+  .site-header.scrolled { background: rgba(255,255,255,.86); backdrop-filter: saturate(180%) blur(16px); box-shadow: 0 1px 0 rgba(15,27,42,.06); }
+  .site-header .brand-text, .site-header .brand-mark { color: #fff; transition: color .35s ease; }
+  .site-header.scrolled .brand-mark { color: #1F419A; }
+  .menu-open .site-header .brand-mark { color: #fff !important; }
+  .site-header.scrolled .brand-text { color: #071f3d; }
+
+  /* ---------- Motion system (GSAP + ScrollTrigger + Lenis) ---------- */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped, .motion.is-loading, .motion.is-loading body { overflow: hidden; }
+
+  .line { display: block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; }
+  .line-inner { display: block; will-change: transform; }
+
+  /* Preloader */
+  #preloader { display: none; }
+  .motion #preloader {
+    display: grid; place-items: center; position: fixed; inset: 0; z-index: 100;
+    background: radial-gradient(900px 500px at 50% 120%, rgba(17,103,177,.45), transparent 70%), #04162b;
+    color: #fff; clip-path: inset(0 0 0 0);
+  }
+  .pl-inner { text-align: center; }
+  .pl-word { display: flex; justify-content: center; overflow: hidden; font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: clamp(44px, 9vw, 112px); letter-spacing: .06em; line-height: 1.05; }
+  .pl-word span { display: inline-block; }
+  .pl-sub { margin-top: 10px; overflow: hidden; font-family: 'Open Sans', sans-serif; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+  .pl-sub span { display: inline-block; }
+  .pl-bar { width: min(320px, 60vw); height: 2px; margin: 34px auto 0; background: rgba(255,255,255,.12); overflow: hidden; }
+  .pl-bar i { display: block; height: 100%; background: linear-gradient(90deg, #3fa9f5, #fff); transform: scaleX(0); transform-origin: left; }
+  .pl-count { position: absolute; bottom: 28px; left: 32px; font-family: 'Open Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,.55); font-variant-numeric: tabular-nums; }
+  .pl-mark { position: absolute; bottom: 28px; right: 32px; font-size: 13px; color: rgba(255,255,255,.55); }
+
+  /* Section wipe (in-page navigation) */
+  #wipe { display: none; position: fixed; inset: 0; z-index: 90; place-items: center; background: #071f3d; color: #fff; clip-path: inset(100% 0 0 0); }
+  .wipe-mark { font-family: 'Open Sans', sans-serif; font-weight: 700; letter-spacing: .3em; font-size: 14px; }
+
+  /* Scroll progress */
+  #scrollProgress { position: fixed; top: 0; right: 0; left: 0; height: 3px; z-index: 60; transform: scaleX(0); transform-origin: right; background: linear-gradient(to left, #3fa9f5, #1167b1); pointer-events: none; }
+
+  /* Custom cursor (fine pointers only) */
+  #cursor { display: none; }
+  @media (pointer: fine) {
+    .motion #cursor {
+      display: block; position: fixed; top: 0; left: 0; z-index: 110; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+      border-radius: 50%; background: #3fa9f5; border: 1.5px solid #3fa9f5; pointer-events: none;
+      box-shadow: 0 0 0 4px rgba(63,169,245,.18);
+      transition: width .35s cubic-bezier(.2,.7,.2,1), height .35s cubic-bezier(.2,.7,.2,1), margin .35s cubic-bezier(.2,.7,.2,1), background-color .35s ease;
+    }
+    .motion #cursor.is-hover { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: rgba(63,169,245,.28); }
+  }
+
+  /* Partner logo slider (full-bleed, infinite) */
+  .logo-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  }
+  .logo-track { display: flex; width: max-content; animation: logos 45s linear infinite; }
+  .logo-marquee:hover .logo-track { animation-play-state: paused; }
+  .logo-track ul { display: flex; }
+  .logo-item { flex: none; display: grid; place-items: center; width: 220px; height: 110px; padding: 0 28px; }
+  .logo-item img { max-height: 72px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .55; transition: filter .4s ease, opacity .4s ease, transform .4s cubic-bezier(.2,.7,.2,1); }
+  .logo-item:hover img { filter: none; opacity: 1; transform: scale(1.06); }
+  @keyframes logos { to { transform: translateX(-50%); } }
+  @media (max-width: 767px) { .logo-item { width: 160px; height: 90px; padding: 0 18px; } .logo-item img { max-height: 56px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track { animation: none; width: auto; justify-content: center; flex-wrap: wrap; }
+    .logo-track ul[aria-hidden] { display: none; }
+    .logo-track ul { flex-wrap: wrap; justify-content: center; }
+  }
+
+  /* Scroll-driven flight route (plane follows a path down the page) */
+  #flightLayer { position: absolute; left: 0; width: 100%; z-index: -1; pointer-events: none; }
+  #flightLayer svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  #flightTrack { fill: none; stroke: rgba(59,79,102,.16); stroke-width: .75; stroke-linecap: round; stroke-linejoin: round; }
+  #flightProgress { fill: none; stroke: rgba(59,79,102,.55); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+  #flightPlane {
+    position: absolute; top: 0; left: 0; z-index: -1; width: 40px; height: 40px; pointer-events: none;
+    filter: drop-shadow(0 10px 14px rgba(7,31,61,.35));
+  }
+  #flightPlane svg { width: 100%; height: 100%; }
+  #flightPlane.is-idle svg { animation: planeBob 1.8s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(255,255,255,.55)); }
+  @keyframes planeBob { 0%,100% { transform: translateX(0); } 50% { transform: translateX(7px); } } /* nose points down: +x = down */
+  @media (max-width: 767px) { #flightPlane { width: 28px; height: 28px; } }
+
+  .marquee { -webkit-text-stroke: 1.5px #c9d4e1; color: transparent; }
+
+
+  .card-hover { transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease; }
+  .card-hover:hover { transform: translateY(-6px); box-shadow: 0 2px 4px rgba(15,27,42,.05), 0 24px 48px -16px rgba(17,103,177,.28); }
+
+  .eyebrow { letter-spacing: .14em; }
+
+  /* Headline accent: colour drifts slowly from side to side */
+  .text-shimmer {
+    background: linear-gradient(90deg, #ffffff 0%, #9fd6ff 22%, #3fa9f5 45%, #ffffff 62%, #7cc4fa 80%, #3fa9f5 100%);
+    background-size: 260% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: shimmer 7s ease-in-out infinite alternate;
+  }
+  @keyframes shimmer { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+  @media (prefers-reduced-motion: reduce) { .text-shimmer { animation: none; background-position: 40% 50%; } }
+
+  /* ---------- Hamburger + glass menu ---------- */
+  .burger {
+    display: inline-flex; align-items: center; gap: 12px; height: 48px; padding: 0 18px 0 20px; border-radius: 9999px;
+    color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+    background: linear-gradient(135deg, rgba(63,169,245,.45), rgba(17,103,177,.55));
+    border: 1px solid rgba(255,255,255,.32);
+    -webkit-backdrop-filter: blur(14px) saturate(170%); backdrop-filter: blur(14px) saturate(170%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 12px 30px -12px rgba(4,22,43,.55);
+    transition: background .35s ease, transform .35s ease;
+  }
+  .burger:hover { background: linear-gradient(135deg, rgba(63,169,245,.65), rgba(17,103,177,.75)); }
+  .site-header.scrolled .burger { background: linear-gradient(135deg, #3fa9f5, #1167b1); border-color: rgba(255,255,255,.4); }
+  .burger:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  @media (max-width: 379px) { .burger-label { display: none; } .burger { padding: 0 14px; } }
+  .burger-lines { position: relative; width: 22px; height: 12px; }
+  .burger-lines i { position: absolute; right: 0; height: 2px; border-radius: 2px; background: currentColor; transition: top .45s cubic-bezier(.2,.7,.2,1), transform .45s cubic-bezier(.2,.7,.2,1), width .45s ease; }
+  .burger-lines i:first-child { top: 0; width: 22px; }
+  .burger-lines i:last-child  { top: 10px; width: 14px; }
+  .burger:hover .burger-lines i:last-child { width: 22px; }
+  .menu-open .burger-lines i:first-child { top: 5px; width: 22px; transform: rotate(45deg); }
+  .menu-open .burger-lines i:last-child  { top: 5px; width: 22px; transform: rotate(-45deg); }
+
+  .menu-panel {
+    position: fixed; inset: 0; z-index: 45; color: #fff; overflow-y: auto; scrollbar-width: none;
+    visibility: hidden; opacity: 0;
+    background:
+      radial-gradient(800px 500px at 85% 0%, rgba(255,255,255,.18), transparent 60%),
+      radial-gradient(700px 600px at 10% 100%, rgba(63,169,245,.35), transparent 65%),
+      linear-gradient(135deg, rgba(17,103,177,.72) 0%, rgba(11,45,85,.82) 100%);
+    -webkit-backdrop-filter: blur(26px) saturate(170%); backdrop-filter: blur(26px) saturate(170%);
+    clip-path: circle(0% at 6% 40px);
+    /* closing: wait for the links to drop, then shrink back into the button */
+    transition: clip-path .85s cubic-bezier(.77,0,.18,1) .38s, opacity .25s ease 1.1s, visibility 0s linear 1.25s;
+  }
+  .menu-open .menu-panel { visibility: visible; opacity: 1; clip-path: circle(150% at 6% 40px); transition: clip-path .9s cubic-bezier(.77,0,.18,1), opacity .3s ease; }
+  .menu-panel::after { /* glass edge highlight */
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    border-top: 1px solid rgba(255,255,255,.25);
+    background: linear-gradient(180deg, rgba(255,255,255,.08), transparent 30%);
+  }
+  .menu-list li { overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .menu-link {
+    display: flex; align-items: baseline; gap: 20px; padding: 10px 0;
+    font-size: clamp(30px, 4.4vw, 60px); font-weight: 300; line-height: 1.15; letter-spacing: 0;
+    transform: translateY(110%); transition: transform .55s cubic-bezier(.7,0,.84,0), color .3s ease;
+    transition-delay: calc(.08s + (5 - var(--i)) * .045s), 0s; /* closing: bottom item drops first */
+  }
+  .menu-open .menu-link { transform: none; transition: transform .9s cubic-bezier(.2,.7,.2,1), color .3s ease; transition-delay: calc(.25s + var(--i) * .07s), 0s; }
+  .menu-num { font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 500; color: rgba(255,255,255,.55); min-width: 28px; }
+  .menu-text { position: relative; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .menu-link:hover .menu-text, .menu-link.is-active .menu-text { transform: translateX(-14px); }
+  .menu-link:hover .menu-num, .menu-link.is-active .menu-num { color: #9fd6ff; }
+  .menu-link:hover, .menu-link.is-active { color: #cfeaff; }
+  .menu-link { align-items: center; }
+  .menu-thumb {
+    display: inline-block; flex: none; width: 0; height: 1em; border-radius: 9999px;
+    background-size: cover; background-position: center; opacity: 0;
+    box-shadow: 0 14px 30px -12px rgba(4,22,43,.6), inset 0 0 0 1px rgba(255,255,255,.35);
+    transform: scale(.6) rotate(-6deg);
+    transition: width .6s cubic-bezier(.2,.7,.2,1), opacity .4s ease, transform .6s cubic-bezier(.2,.7,.2,1);
+  }
+  .menu-link:hover .menu-thumb, .menu-link:focus-visible .menu-thumb { width: 2.6em; opacity: 1; transform: none; }
+  @media (hover: none) { .menu-thumb { display: none; } }
+  .menu-side { opacity: 0; transform: translateY(30px); transition: opacity .3s ease, transform .4s cubic-bezier(.7,0,.84,0); }
+  .menu-open .menu-side { opacity: 1; transform: none; transition: opacity .6s ease .55s, transform .9s cubic-bezier(.2,.7,.2,1) .55s; }
+  .glass-card {
+    border-radius: 28px; padding: 28px;
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.22);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .menu-open .site-header { background: transparent !important; box-shadow: none !important; backdrop-filter: none !important; }
+  .menu-open .site-header .brand-text { color: #fff !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-panel, .menu-open .menu-panel { clip-path: none; transition: opacity .2s, visibility 0s; }
+    .menu-link, .menu-side { transform: none; transition: none; }
+  }
+
+  /* ---------- Services accordion ---------- */
+  .acc { display: flex; gap: 12px; height: 580px; }
+  .acc-panel {
+    position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; isolation: isolate; cursor: pointer; outline: none;
+    border-radius: 28px; background: #071f3d; color: #fff;
+    transition: flex-grow .9s cubic-bezier(.65,0,.2,1), height .8s cubic-bezier(.65,0,.2,1), box-shadow .5s ease;
+  }
+  .acc-panel.is-active { flex-grow: 4.2; cursor: default; box-shadow: 0 30px 60px -28px rgba(7,31,61,.65); }
+  .acc-panel:focus-visible { box-shadow: 0 0 0 3px #fff, 0 0 0 6px #3fa9f5; }
+  .acc-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); filter: saturate(.35) brightness(.8); transition: transform 1.4s cubic-bezier(.2,.7,.2,1), filter .9s ease; z-index: -2; }
+  .acc-panel:hover .acc-img { filter: saturate(.6) brightness(.9); }
+  .acc-panel.is-active .acc-img { transform: scale(1); filter: none; }
+  .acc-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(11,45,85,.72), rgba(7,31,61,.94)); transition: opacity .9s ease; }
+  .acc-shade::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,22,43,0) 25%, rgba(4,22,43,.9) 100%); opacity: 0; transition: opacity .9s ease; }
+  .acc-panel.is-active .acc-shade { background: transparent; }
+  .acc-panel.is-active .acc-shade::after { opacity: 1; }
+  .acc-icon {
+    display: grid; place-items: center; flex: none; width: 60px; height: 60px; border-radius: 9999px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .acc-icon svg { width: 30px; height: 30px; }
+  .acc-collapsed { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 28px 0; transition: opacity .35s ease; }
+  .acc-panel.is-active .acc-collapsed { opacity: 0; pointer-events: none; }
+  .acc-vtitle { writing-mode: vertical-rl; font-size: 20px; font-weight: 700; white-space: nowrap; letter-spacing: .01em; }
+  .acc-num { font-family: 'Open Sans', sans-serif; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.55); }
+  .acc-content {
+    position: absolute; right: 0; bottom: 0; width: min(460px, 100%); padding: 36px;
+    opacity: 0; transform: translateY(30px); pointer-events: none;
+    transition: opacity .35s ease, transform .6s cubic-bezier(.2,.7,.2,1);
+  }
+  .acc-panel.is-active .acc-content { opacity: 1; transform: none; pointer-events: auto; transition-delay: .4s; }
+  .acc-content .acc-icon { width: 72px; height: 72px; background: rgba(17,103,177,.45); }
+  .acc-content .acc-icon svg { width: 36px; height: 36px; }
+  @media (max-width: 1023px) {
+    .acc { flex-direction: column; height: auto; }
+    .acc-panel { flex: none; height: 88px; }
+    .acc-panel.is-active { height: 440px; }
+    .acc-collapsed { flex-direction: row; justify-content: flex-start; gap: 16px; padding: 0 20px; }
+    .acc-collapsed .acc-icon { width: 48px; height: 48px; }
+    .acc-collapsed .acc-icon svg { width: 24px; height: 24px; }
+    .acc-vtitle { writing-mode: horizontal-tb; font-size: 18px; white-space: normal; }
+    .acc-num { margin-inline-start: auto; }
+    .acc-content { padding: 26px; }
+  }
+
+  /* ---------- News: tabs, search, 3D slider ---------- */
+  .news-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 4px; margin: -4px; }
+  .news-tabs::-webkit-scrollbar { display: none; }
+  .news-tab {
+    flex: none; padding: 10px 18px; border-radius: 9999px; font-size: 14px; font-weight: 600; white-space: nowrap;
+    color: #4a5a6e; background: #f6f8fb; border: 1px solid #eef2f6; transition: background .3s, color .3s, border-color .3s, box-shadow .3s;
+  }
+  .news-tab:hover { color: #1167b1; border-color: #dbe2ea; }
+  .news-tab.is-active { color: #fff; background: #071f3d; border-color: #071f3d; box-shadow: 0 10px 24px -12px rgba(7,31,61,.6); }
+  .news-search {
+    display: flex; align-items: center; gap: 10px; flex: none; width: 100%; max-width: 320px; height: 46px; padding: 0 16px;
+    border-radius: 9999px; background: #f6f8fb; border: 1px solid #dbe2ea; color: #8795a7; transition: border-color .3s, box-shadow .3s, background .3s;
+  }
+  .news-search:focus-within { background: #fff; border-color: #1167b1; box-shadow: 0 0 0 4px rgba(17,103,177,.1); color: #1167b1; }
+  .news-search input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; font-size: 15px; color: #0f1b2a; }
+  @media (max-width: 1023px) { .news-search { max-width: none; } }
+
+  .news-stage {
+    position: relative; margin-top: 28px; border-radius: 32px; background: linear-gradient(180deg, #eef2f6, #f6f8fb);
+    padding: 36px 0 28px; overflow: hidden; perspective: 1200px;
+  }
+  .news-track {
+    display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    padding: 18px max(24px, calc(50% - 160px)); scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+  }
+  .news-track::-webkit-scrollbar { display: none; }
+  .news-card {
+    flex: none; width: 320px; scroll-snap-align: center; border-radius: 22px; background: #fff; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(15,27,42,.05), 0 18px 40px -22px rgba(15,27,42,.35);
+    transform-style: preserve-3d; will-change: transform; transition: box-shadow .4s ease;
+  }
+  .news-card[hidden] { display: none; }
+  .news-card:hover { box-shadow: 0 2px 4px rgba(15,27,42,.06), 0 28px 50px -22px rgba(17,103,177,.45); }
+  .news-img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #dbe2ea; }
+  .news-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+  .news-card:hover .news-img img { transform: scale(1.06); }
+  .news-badge { position: absolute; top: 14px; right: 14px; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600; color: #071f3d; background: rgba(255,255,255,.9); backdrop-filter: blur(6px); }
+  .news-title { margin-top: 6px; font-size: 18px; font-weight: 700; line-height: 1.4; color: #071f3d; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color .3s; }
+  .news-card:hover .news-title { color: #1167b1; }
+  .news-ex { margin-top: 8px; font-size: 15px; line-height: 1.6; color: #4a5a6e; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .news-more { margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #1167b1; }
+  .news-empty { padding: 60px 20px; text-align: center; color: #4a5a6e; font-size: 16px; }
+  .news-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 22px; }
+  .news-btn { padding: 10px 22px; border-radius: 9999px; font-size: 14px; font-weight: 600; color: #071f3d; background: #eef2f6; transition: background .3s, color .3s, transform .3s; }
+  .news-btn:hover { background: #dbe2ea; }
+  .news-btn.is-primary { color: #fff; background: #071f3d; }
+  .news-btn.is-primary:hover { background: #1167b1; }
+  .news-btn:disabled { opacity: .4; pointer-events: none; }
+  .news-dots { display: flex; gap: 6px; align-items: center; }
+  .news-dots i { cursor: pointer; width: 6px; height: 6px; border-radius: 9999px; background: #c9d4e1; transition: width .35s ease, background .35s ease; }
+  .news-dots i.is-active { width: 22px; background: #071f3d; }
+  @media (max-width: 640px) { .news-card { width: 270px; } .news-track { gap: 16px; padding-inline: max(20px, calc(50% - 135px)); } .news-stage { border-radius: 24px; padding-top: 24px; } }
+
+  /* Quick-link icon circles */
+  .quick-icon {
+    --qi-bg: #eef2f6;
+    display: grid; place-items: center; width: 104px; height: 104px; border-radius: 9999px;
+    background: var(--qi-bg); color: #2b3440;
+    transition: background-color .35s ease, color .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease;
+  }
+  .quick-link:hover .quick-icon, .quick-link:focus-visible .quick-icon {
+    --qi-bg: #1167b1; color: #fff; transform: translateY(-4px);
+    box-shadow: 0 18px 36px -14px rgba(17,103,177,.55);
+  }
+  .quick-link:focus-visible { outline: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cloud, .hero-photo, #flightPlane svg { animation: none !important; }
+  }
+</style>
+</head>
+<body class="bg-white text-ink-900">
+
+<!-- ISRALPA mark (vector, from MATIRIALS/ISRALPA-mark.svg) – coloured via currentColor -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <mask id="isralpa-mark-cut" maskUnits="userSpaceOnUse" x="-2" y="-2" width="104" height="104">
+      <circle cx="50" cy="50" r="50" fill="#fff"/>
+      <g fill="none" stroke="#000">
+        <circle cx="50" cy="0" r="11.25" stroke-width="5.5"/>
+        <circle cx="50" cy="0" r="25.25" stroke-width="5.5"/>
+        <circle cx="50" cy="0" r="39.25" stroke-width="5.5"/>
+        <circle cx="50" cy="0" r="53.25" stroke-width="5.5"/>
+        <path d="M-2 52 L16 65 M102 52 L84 65" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <path d="M44.5 54 C46.8 63 48 76 50 88 C52 76 53.2 63 55.5 54 Z" fill="#000"/>
+    </mask>
+    <symbol id="isralpa-mark" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="currentColor" mask="url(#isralpa-mark-cut)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ MOTION OVERLAYS ============ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-inner">
+    <div class="pl-word" dir="ltr"><span>I</span><span>S</span><span>R</span><span>A</span><span>L</span><span>P</span><span>A</span></div>
+    <div class="pl-sub" dir="ltr"><span>Israeli Air Line Pilots Association</span></div>
+    <div class="pl-bar"><i></i></div>
+  </div>
+  <div class="pl-count" dir="ltr"><span id="plCount">0</span>%</div>
+  <div class="pl-mark">ארגון טייסי חברות התעופה בישראל</div>
+</div>
+<div id="wipe" aria-hidden="true"><span class="wipe-mark" dir="ltr">ISRALPA</span></div>
+<div id="scrollProgress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader" class="site-header fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-5 lg:px-8">
+    <a href="#top" class="flex min-w-0 items-center gap-3" aria-label="ISRALPA – דף הבית">
+      <svg class="brand-mark shrink-0" width="42" height="42" aria-hidden="true"><use href="#isralpa-mark"/></svg>
+      <span class="brand-text leading-tight transition-colors">
+        <span class="block font-latin text-lg font-bold tracking-wide">ISRALPA</span>
+        <span class="block text-[11px] font-medium opacity-70">האיגוד הארצי לטייסי נתיבי אוויר בישראל</span>
+      </span>
+    </a>
+
+
+    <div class="flex shrink-0 items-center gap-3">
+      <a href="#login" data-magnetic class="hidden items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy-900 shadow-card transition hover:bg-sky-mist sm:inline-flex">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        כניסת חברים
+      </a>
+      <button id="menuBtn" class="burger" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="menuPanel">
+        <span class="burger-label">תפריט</span>
+        <span class="burger-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+</header>
+
+<!-- ============ GLASS MENU ============ -->
+<div id="menuPanel" class="menu-panel" aria-hidden="true">
+  <div class="relative mx-auto grid min-h-full max-w-7xl gap-12 px-5 pb-12 pt-28 lg:grid-cols-12 lg:items-end lg:px-8 lg:pt-32">
+    <nav class="lg:col-span-8" aria-label="ניווט ראשי">
+      <ul class="menu-list">
+        <li><a href="#top" class="menu-link" style="--i:0"><span class="menu-num">01</span><span class="menu-text">דף הבית</span><span class="menu-thumb" style="background-image:url('MATIRIALS/HERO2.jpg')" aria-hidden="true"></span></a></li>
+        <li><a href="#about" class="menu-link" style="--i:1"><span class="menu-num">02</span><span class="menu-text">אודות ומטרות</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1713327023739-fb362e20b96b?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
+        <li><a href="#placement" class="menu-link" style="--i:2"><span class="menu-num">03</span><span class="menu-text">מרכז השמה</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1764547168268-1c8b531bce9f?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
+        <li><a href="#news" class="menu-link" style="--i:3"><span class="menu-num">04</span><span class="menu-text">חדשות ועדכונים</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1724424362395-089675432137?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
+        <li><a href="#media" class="menu-link" style="--i:4"><span class="menu-num">05</span><span class="menu-text">בתקשורת</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1520437358207-323b43b50729?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
+        <li><a href="#contact" class="menu-link" style="--i:5"><span class="menu-num">06</span><span class="menu-text">צור קשר</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1698760000166-459acd1e93c8?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
+      </ul>
+    </nav>
+    <aside class="menu-side grid gap-5 lg:col-span-4">
+      <div class="glass-card">
+        <p class="text-xs font-semibold uppercase tracking-[.2em] text-white/60">אזור חברים</p>
+        <p class="mt-3 text-lg leading-relaxed text-white/85">מסמכים, הסכמים ושירותים ייעודיים לחברי הארגון.</p>
+        <a href="#login" class="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy-900 transition hover:bg-sky-mist">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          כניסת חברים
+        </a>
+      </div>
+      <div class="glass-card text-sm text-white/75">
+        <p class="font-semibold text-white">צור קשר</p>
+        <p class="mt-2 leading-relaxed">רחוב הבעש״ט 6, בניין המכון הגיאופיזי לישראל, אזור התעשייה הצפוני, לוד</p>
+        <p class="mt-2">טלפון: <a href="tel:+97289150694" dir="ltr" class="hover:text-white">08-9150694</a> · פקס: <span dir="ltr">08-9150934</span></p>
+        <p class="mt-1"><a href="mailto:igud@isralpa.org.il" dir="ltr" class="hover:text-white">igud@isralpa.org.il</a></p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero-sky grain relative flex min-h-[100svh] items-center overflow-hidden">
+  <div class="hero-media">
+    <img class="hero-photo" src="MATIRIALS/HERO2.jpg" width="1920" height="1081" alt="" fetchpriority="high" />
+  </div>
+  <div class="cloud" style="width:620px;height:140px;top:66%;animation-duration:110s;animation-delay:-40s;opacity:.55"></div>
+  <div class="cloud" style="width:780px;height:180px;top:82%;animation-duration:90s;animation-delay:-10s;opacity:.6"></div>
+  <div class="hero-shade"></div>
+
+  <!-- horizon fade into page -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-white/0"></div>
+
+  <div class="relative z-10 mx-auto w-full max-w-7xl px-5 pb-72 pt-32 md:pb-24 lg:px-8">
+    <div class="hero-in max-w-2xl">
+      <p class="eyebrow mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase text-white/90 backdrop-blur">
+        <span class="h-1.5 w-1.5 rounded-full bg-sky-light"></span>
+        Israeli Air Line Pilots Association
+      </p>
+      <h1 data-split class="text-[2.6rem] font-extrabold leading-[1.05] tracking-tight text-white min-[400px]:text-5xl sm:text-6xl lg:text-7xl">
+        הקול המקצועי<br/>
+        של <span class="text-shimmer">טייסי ישראל.</span>
+      </h1>
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
+        ארגון טייסי חברות התעופה בישראל פועל לקידום בטיחות הטיסה, לשמירה על מעמדו המקצועי של הטייס ולרווחת חברי הארגון.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a href="#about" data-magnetic class="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-base font-semibold text-navy-900 shadow-lift transition hover:bg-sky-mist">
+          הכירו את הארגון
+          <svg class="transition-transform group-hover:-translate-x-1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        </a>
+        <a href="#placement" data-magnetic class="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-4 text-base font-semibold text-white backdrop-blur transition hover:bg-white/10">
+          מרכז השמה
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ QUICK LINKS STRIP ============ -->
+<section class="relative z-10 -mt-14">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div data-anim="strip" class="grid grid-cols-2 gap-y-10 rounded-3xl bg-white px-4 py-10 shadow-lift sm:grid-cols-4 sm:py-12">
+
+      <a href="#about" class="quick-link group flex flex-col items-center gap-5 text-center">
+        <span class="quick-icon">
+          <svg width="54" height="54" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 17h38"/>
+            <path d="M7 17c0 7 2.6 11.5 7.6 11.5S22 24.6 22 20.5c0-2-1.2-3.5-3.2-3.5" fill="currentColor"/>
+            <path d="M41 17c0 7-2.6 11.5-7.6 11.5S26 24.6 26 20.5c0-2 1.2-3.5 3.2-3.5" fill="currentColor"/>
+            <path d="M22 20c1.2-1.6 2.8-1.6 4 0"/>
+            <path d="M10.5 20.5l3 4M34.5 20.5l3 4" stroke="#fff" stroke-width="1.6" opacity=".7"/>
+          </svg>
+        </span>
+        <span class="text-base font-bold text-sky-brand transition-colors group-hover:text-navy-800 sm:text-lg">פעילות האיגוד</span>
+      </a>
+
+      <a href="#about" class="quick-link group flex flex-col items-center gap-5 text-center">
+        <span class="quick-icon">
+          <svg width="54" height="54" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="7" y="13" width="6" height="16" rx="3" fill="currentColor"/>
+            <rect x="35" y="13" width="6" height="16" rx="3" fill="currentColor"/>
+            <path d="M13 22c3-3.5 6.5-5 11-5s8 1.5 11 5"/>
+            <rect x="18.5" y="15.5" width="11" height="9" rx="2.5"/>
+            <path d="M24 24.5V37M19 37h10"/>
+          </svg>
+        </span>
+        <span class="font-latin text-base font-bold text-sky-brand transition-colors group-hover:text-navy-800 sm:text-lg"><span class="font-sans">אודות</span> IFALPA</span>
+      </a>
+
+      <a href="#news" class="quick-link group flex flex-col items-center gap-5 text-center">
+        <span class="quick-icon">
+          <svg width="54" height="54" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="28" cy="29" r="9.5"/>
+            <path d="M22 25.5c2 .3 3.2 1.6 3 3.6-.2 1.6 1 2.6 2.6 2.4M31 21.5c-.6 1.6.2 3 1.8 3.4 1.4.4 2.2 1.5 2.4 3"/>
+            <path d="M9 34.5A18 18 0 0 1 14 12" stroke-dasharray="2 3.2"/>
+            <path d="M33 11.5a18 18 0 0 1 8 10" stroke-dasharray="2 3.2"/>
+            <path transform="translate(15.5 3.5) rotate(60 7 7) scale(.62)" fill="currentColor" stroke="none" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        </span>
+        <span class="text-base font-bold text-sky-brand transition-colors group-hover:text-navy-800 sm:text-lg">כנסים ואירועים</span>
+      </a>
+
+      <a href="#about" class="quick-link group flex flex-col items-center gap-5 text-center">
+        <span class="quick-icon">
+          <svg width="54" height="54" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path transform="translate(4 4) rotate(45 12 12) scale(1.15)" fill="currentColor" stroke="none" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+            <path d="M33 23l9 3.2v6.3c0 5-3.8 8.6-9 10-5.2-1.4-9-5-9-10v-6.3z" fill="var(--qi-bg, #eef2f6)"/>
+            <path d="M29.2 32.6l2.6 2.6 4.8-5"/>
+            <path d="M40 9v4M38 11h4M8 36v3M6.5 37.5h3" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="text-base font-bold text-sky-brand transition-colors group-hover:text-navy-800 sm:text-lg">טייסים למען הקהילה</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ACCORDION ============ -->
+<section id="services" class="scroll-mt-24 pt-20 sm:pt-28 lg:pt-36">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div data-anim="stagger" class="mb-12 flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow text-xs font-semibold uppercase text-sky-brand">הארגון בשבילך</p>
+        <h2 data-split class="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-navy-900 sm:text-5xl">כל מה שטייס צריך,<br/>במקום אחד.</h2>
+      </div>
+      <p class="max-w-sm text-lg leading-relaxed text-ink-600">מידע מקצועי, תמיכה וקהילה – לאורך כל שלבי הקריירה.</p>
+    </div>
+
+    <div class="acc" data-anim="stagger" data-from="deep" role="list">
+      <article class="acc-panel is-active" role="listitem" tabindex="0" aria-expanded="true" aria-label="עדכוני תעופה">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1724424362395-089675432137?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy" />
+        <div class="acc-shade"></div>
+        <div class="acc-collapsed" aria-hidden="true">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16h20l-2.5 8h-15z"/><path d="M17 16l2-5h10l2 5"/><path d="M18 24v18M30 24v18M14 42h20M18 31h12"/><path d="M36 9a7 7 0 0 1 0 10M39.5 6a12 12 0 0 1 0 16"/></svg></span>
+          <span class="acc-vtitle">עדכוני תעופה</span>
+          <span class="acc-num">01</span>
+        </div>
+        <div class="acc-content">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16h20l-2.5 8h-15z"/><path d="M17 16l2-5h10l2 5"/><path d="M18 24v18M30 24v18M14 42h20M18 31h12"/><path d="M36 9a7 7 0 0 1 0 10M39.5 6a12 12 0 0 1 0 16"/></svg></span>
+          <h3 class="mt-6 text-3xl font-extrabold leading-tight">עדכוני תעופה</h3>
+          <p class="mt-3 text-lg leading-relaxed text-white/80">עדכונים שוטפים מהרגולטור, מחברות התעופה ומהזירה הבינלאומית – כל מה שטייס צריך לדעת.</p>
+          <a href="#news" class="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy-900 transition hover:bg-sky-mist">
+            קרא עוד
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="acc-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="גלריית סרטונים">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1520437358207-323b43b50729?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy" />
+        <div class="acc-shade"></div>
+        <div class="acc-collapsed" aria-hidden="true">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="38" height="26" rx="5"/><path d="M21 18.5v11l9-5.5z" fill="currentColor"/><path d="M12 42h24"/></svg></span>
+          <span class="acc-vtitle">גלריית סרטונים</span>
+          <span class="acc-num">02</span>
+        </div>
+        <div class="acc-content">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="38" height="26" rx="5"/><path d="M21 18.5v11l9-5.5z" fill="currentColor"/><path d="M12 42h24"/></svg></span>
+          <h3 class="mt-6 text-3xl font-extrabold leading-tight">גלריית סרטונים</h3>
+          <p class="mt-3 text-lg leading-relaxed text-white/80">הרצאות, כנסים וסרטוני הדרכה מקצועיים מתוך פעילות הארגון.</p>
+          <a href="#media" class="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy-900 transition hover:bg-sky-mist">
+            קרא עוד
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="acc-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="רעו״ת – טייסים למען טייסים">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1713327023739-fb362e20b96b?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy" />
+        <div class="acc-shade"></div>
+        <div class="acc-collapsed" aria-hidden="true">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="16" r="6"/><path d="M14 40c0-6.5 4.5-11 10-11s10 4.5 10 11"/><circle cx="10" cy="20" r="4.2"/><path d="M3 38c0-4.6 3-8 7-8 1.6 0 3 .5 4.2 1.4"/><circle cx="38" cy="20" r="4.2"/><path d="M45 38c0-4.6-3-8-7-8-1.6 0-3 .5-4.2 1.4"/><path d="M17.5 15a6.5 6.5 0 0 1 13 0M30.5 15v3.5a3 3 0 0 1-3 3h-2"/></svg></span>
+          <span class="acc-vtitle">רעו״ת – טייסים למען טייסים</span>
+          <span class="acc-num">03</span>
+        </div>
+        <div class="acc-content">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="16" r="6"/><path d="M14 40c0-6.5 4.5-11 10-11s10 4.5 10 11"/><circle cx="10" cy="20" r="4.2"/><path d="M3 38c0-4.6 3-8 7-8 1.6 0 3 .5 4.2 1.4"/><circle cx="38" cy="20" r="4.2"/><path d="M45 38c0-4.6-3-8-7-8-1.6 0-3 .5-4.2 1.4"/><path d="M17.5 15a6.5 6.5 0 0 1 13 0M30.5 15v3.5a3 3 0 0 1-3 3h-2"/></svg></span>
+          <h3 class="mt-6 text-3xl font-extrabold leading-tight">רעו״ת – טייסים למען טייסים</h3>
+          <p class="mt-3 text-lg leading-relaxed text-white/80">רשת עזרה ותמיכה חסויה: עמיתים מוכשרים שמלווים טייסים בתקופות מאתגרות.</p>
+          <a href="#about" class="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy-900 transition hover:bg-sky-mist">
+            קרא עוד
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="acc-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="מאמרים מקצועיים">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1587408811730-1a978e6c407d?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy" />
+        <div class="acc-shade"></div>
+        <div class="acc-collapsed" aria-hidden="true">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5h17l9 9v29H12z"/><path d="M29 5v9h9"/><path d="M18 22h14M18 28h14M18 34h9"/></svg></span>
+          <span class="acc-vtitle">מאמרים מקצועיים</span>
+          <span class="acc-num">04</span>
+        </div>
+        <div class="acc-content">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5h17l9 9v29H12z"/><path d="M29 5v9h9"/><path d="M18 22h14M18 28h14M18 34h9"/></svg></span>
+          <h3 class="mt-6 text-3xl font-extrabold leading-tight">מאמרים מקצועיים</h3>
+          <p class="mt-3 text-lg leading-relaxed text-white/80">ניתוחים, תחקירים וניירות עמדה בנושאי בטיחות, תפעול ורגולציה.</p>
+          <a href="#news" class="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy-900 transition hover:bg-sky-mist">
+            קרא עוד
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="acc-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="טייסים מספרים">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1764547168268-1c8b531bce9f?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy" />
+        <div class="acc-shade"></div>
+        <div class="acc-collapsed" aria-hidden="true">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="26" r="5"/><path d="M5 43c0-5 4-8.5 9-8.5s9 3.5 9 8.5"/><path d="M22 6h20a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-9l-6 5v-5h-5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3z"/><path d="M27 12.5h10M27 17h6"/></svg></span>
+          <span class="acc-vtitle">טייסים מספרים</span>
+          <span class="acc-num">05</span>
+        </div>
+        <div class="acc-content">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="26" r="5"/><path d="M5 43c0-5 4-8.5 9-8.5s9 3.5 9 8.5"/><path d="M22 6h20a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-9l-6 5v-5h-5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3z"/><path d="M27 12.5h10M27 17h6"/></svg></span>
+          <h3 class="mt-6 text-3xl font-extrabold leading-tight">טייסים מספרים</h3>
+          <p class="mt-3 text-lg leading-relaxed text-white/80">סיפורים אישיים מהקוקפיט – רגעים, תובנות ושיעורים מהשטח.</p>
+          <a href="#media" class="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy-900 transition hover:bg-sky-mist">
+            קרא עוד
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="acc-panel" role="listitem" tabindex="0" aria-expanded="false" aria-label="מקצועות תעופה אחרים">
+        <img class="acc-img" src="https://images.unsplash.com/photo-1510634047060-93a4747e85c4?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy" />
+        <div class="acc-shade"></div>
+        <div class="acc-collapsed" aria-hidden="true">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="currentColor"><path d="M44.5 21.6c-.9-.9-2.3-1.3-4-1.3H30.8L19.6 6h-4.4l5.6 14.3H11l-3.7-4.6H4l2.4 8.3L4 32.3h3.3l3.7-4.6h9.8L15.2 42h4.4l11.2-14.3h9.7c1.7 0 3.1-.4 4-1.3.6-.6.9-1.4.9-2.4s-.3-1.8-.9-2.4z"/></svg></span>
+          <span class="acc-vtitle">מקצועות תעופה אחרים</span>
+          <span class="acc-num">06</span>
+        </div>
+        <div class="acc-content">
+          <span class="acc-icon"><svg viewBox="0 0 48 48" fill="currentColor"><path d="M44.5 21.6c-.9-.9-2.3-1.3-4-1.3H30.8L19.6 6h-4.4l5.6 14.3H11l-3.7-4.6H4l2.4 8.3L4 32.3h3.3l3.7-4.6h9.8L15.2 42h4.4l11.2-14.3h9.7c1.7 0 3.1-.4 4-1.3.6-.6.9-1.4.9-2.4s-.3-1.8-.9-2.4z"/></svg></span>
+          <h3 class="mt-6 text-3xl font-extrabold leading-tight">מקצועות תעופה אחרים</h3>
+          <p class="mt-3 text-lg leading-relaxed text-white/80">קרקע, פיקוח, דיילים ושאר אנשי המקצוע שהופכים כל טיסה לבטוחה.</p>
+          <a href="#about" class="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-navy-900 transition hover:bg-sky-mist">
+            קרא עוד
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT & GOALS ============ -->
+<section id="about" class="scroll-mt-24 py-20 sm:py-28 lg:py-36">
+  <div class="mx-auto grid max-w-7xl gap-16 px-5 lg:grid-cols-12 lg:px-8">
+    <div data-anim="stagger" class="lg:col-span-5">
+      <p class="eyebrow text-xs font-semibold uppercase text-sky-brand">אודות ומטרות</p>
+      <h2 data-split class="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-navy-900 sm:text-5xl">מקצועיות, אחריות<br/>ושמיים בטוחים.</h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-600">
+        הארגון מאגד את טייסי חברות התעופה בישראל ופועל מול הרשויות, חברות התעופה והגופים הבינלאומיים כדי לשמור על רמת הבטיחות הגבוהה ביותר ועל זכויות הטייסים.
+      </p>
+      <a href="#about" class="mt-8 inline-flex items-center gap-2 font-semibold text-sky-brand hover:gap-3 transition-all">
+        קראו עוד על הארגון
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </a>
+    </div>
+
+    <div data-anim="stagger" class="grid gap-5 sm:grid-cols-2 lg:col-span-7">
+      <article class="card-hover rounded-3xl border border-ink-100 bg-ink-50 p-8">
+        <span class="font-latin text-sm font-bold text-sky-brand">01</span>
+        <h3 class="mt-4 text-xl font-bold text-navy-900">קידום בטיחות הטיסה</h3>
+        <p class="mt-3 leading-relaxed text-ink-600">השתתפות בוועדות מקצועיות, תחקירים ותהליכי רגולציה לשיפור מתמיד של בטיחות התעופה.</p>
+      </article>
+      <article class="card-hover rounded-3xl border border-ink-100 bg-ink-50 p-8 sm:mt-10">
+        <span class="font-latin text-sm font-bold text-sky-brand">02</span>
+        <h3 class="mt-4 text-xl font-bold text-navy-900">ייצוג מקצועי</h3>
+        <p class="mt-3 leading-relaxed text-ink-600">ייצוג הטייסים מול חברות התעופה, רשות התעופה האזרחית וגופי ממשל.</p>
+      </article>
+      <article class="card-hover rounded-3xl border border-ink-100 bg-ink-50 p-8">
+        <span class="font-latin text-sm font-bold text-sky-brand">03</span>
+        <h3 class="mt-4 text-xl font-bold text-navy-900">קשרים בינלאומיים</h3>
+        <p class="mt-3 leading-relaxed text-ink-600">שיתוף פעולה עם ארגוני טייסים בעולם וחברות בפדרציות התעופה הבינלאומיות.</p>
+      </article>
+      <article class="card-hover rounded-3xl border border-ink-100 bg-ink-50 p-8 sm:mt-10">
+        <span class="font-latin text-sm font-bold text-sky-brand">04</span>
+        <h3 class="mt-4 text-xl font-bold text-navy-900">רווחה והכשרה</h3>
+        <p class="mt-3 leading-relaxed text-ink-600">תמיכה בחברי הארגון, השתלמויות מקצועיות וליווי אישי לאורך הקריירה.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="overflow-hidden pb-16 sm:pb-24 lg:pb-32" aria-hidden="true">
+  <div class="marquee whitespace-nowrap font-latin text-[13vw] font-extrabold leading-none tracking-tight lg:text-[10vw]" dir="ltr">
+    SAFETY · PROFESSIONALISM · SOLIDARITY · SAFETY · PROFESSIONALISM · SOLIDARITY
+  </div>
+</section>
+
+<!-- ============ PLACEMENT CENTER ============ -->
+<section id="placement" class="scroll-mt-24 px-5 lg:px-8">
+  <div data-anim="clip" class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-navy-900 px-6 py-12 sm:px-14 sm:py-16 lg:py-20">
+    <div class="pointer-events-none absolute -left-24 -top-24 h-96 w-96 rounded-full bg-sky-brand/40 blur-3xl"></div>
+    <div class="pointer-events-none absolute -bottom-32 left-1/3 h-80 w-80 rounded-full bg-sky-light/20 blur-3xl"></div>
+    <svg class="pointer-events-none absolute bottom-0 left-0 h-full opacity-[.07]" viewBox="0 0 400 300" fill="none" aria-hidden="true">
+      <path d="M-20 260 C 120 240, 220 160, 420 40" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 8"/>
+      <path d="M-20 290 C 140 270, 260 200, 420 110" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 8"/>
+    </svg>
+
+    <div class="relative grid items-center gap-12 lg:grid-cols-2">
+      <div data-anim="stagger">
+        <p class="eyebrow text-xs font-semibold uppercase text-sky-light">מרכז השמה</p>
+        <h2 data-split class="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">הצעד הבא בקריירה<br/>מתחיל כאן.</h2>
+        <p class="mt-6 max-w-lg text-lg leading-relaxed text-white/70">
+          מרכז ההשמה של הארגון מחבר בין טייסים לבין הזדמנויות תעסוקה בארץ ובעולם – משרות פתוחות, הגשת קורות חיים וליווי מקצועי.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a href="#placement" class="rounded-full bg-white px-7 py-4 font-semibold text-navy-900 transition hover:bg-sky-mist">למשרות הפתוחות</a>
+          <a href="#placement" class="rounded-full border border-white/25 px-7 py-4 font-semibold text-white transition hover:bg-white/10">הגשת קורות חיים</a>
+        </div>
+      </div>
+
+      <ul data-anim="stagger" data-from="side" class="grid gap-3">
+        <li class="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10">
+          <div><p class="font-semibold text-white">קצין/ת ראשון/ה – צי רחב גוף</p><p class="mt-1 text-sm text-white/55">משרה מלאה · ישראל</p></div>
+          <span class="rounded-full bg-sky-light/15 px-3 py-1 text-xs font-semibold text-sky-light">חדש</span>
+        </li>
+        <li class="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10">
+          <div><p class="font-semibold text-white">קפטן/ית – צי צר גוף</p><p class="mt-1 text-sm text-white/55">משרה מלאה · ישראל</p></div>
+          <span class="text-white/40"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></span>
+        </li>
+        <li class="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:bg-white/10">
+          <div><p class="font-semibold text-white">מדריך/ת סימולטור</p><p class="mt-1 text-sm text-white/55">חלקית · מרכז הארץ</p></div>
+          <span class="text-white/40"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWS & UPDATES ============ -->
+<section id="news" class="scroll-mt-24 py-20 sm:py-28 lg:py-36">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div data-anim="stagger" class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow text-xs font-semibold uppercase text-sky-brand">חדשות ועדכונים</p>
+        <h2 data-split class="mt-4 text-4xl font-extrabold tracking-tight text-navy-900 sm:text-5xl">מה חדש בארגון</h2>
+      </div>
+      <a href="#news" class="inline-flex items-center gap-2 rounded-full border border-ink-200 px-5 py-2.5 text-sm font-semibold text-navy-900 transition hover:border-sky-brand hover:text-sky-brand">
+        לכל העדכונים
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </a>
+    </div>
+
+    <!-- News: category tabs + search + 3D post slider -->
+    <div data-anim="up" class="news-shell mt-12">
+      <div class="flex flex-col-reverse gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="news-tabs" role="tablist" aria-label="קטגוריות">
+          <button type="button" role="tab" class="news-tab is-active" aria-selected="true" data-tab="הכל">הכל</button>
+          <button type="button" role="tab" class="news-tab" aria-selected="false" data-tab="עדכוני תעופה">עדכוני תעופה</button>
+          <button type="button" role="tab" class="news-tab" aria-selected="false" data-tab="מאמרים מקצועיים">מאמרים מקצועיים</button>
+          <button type="button" role="tab" class="news-tab" aria-selected="false" data-tab="כנסים ואירועים">כנסים ואירועים</button>
+          <button type="button" role="tab" class="news-tab" aria-selected="false" data-tab="טייסים מספרים">טייסים מספרים</button>
+          <button type="button" role="tab" class="news-tab" aria-selected="false" data-tab="תאונות אויריות">תאונות אויריות</button>
+          <button type="button" role="tab" class="news-tab" aria-selected="false" data-tab="מן התקשורת">מן התקשורת</button>
+        </div>
+        <label class="news-search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="search" placeholder="חיפוש בחדשות…" aria-label="חיפוש בחדשות" />
+        </label>
+      </div>
+
+      <div class="news-stage">
+        <div class="news-track" data-lenis-prevent>
+          <article class="news-card" data-cat="עדכוני תעופה">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1687885461404-5ab0c1aa4ad9?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">עדכוני תעופה</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">אפריל 20, 2020</time>
+                <h3 class="news-title">אגרת לרגל יום השואה</h3>
+                
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="עדכוני תעופה">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1713763632972-c502b9fdc9c8?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">עדכוני תעופה</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">אפריל 19, 2020</time>
+                <h3 class="news-title">הצלת התעופה בישראל בכלל והפנים ארצית בפרט</h3>
+                
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="עדכוני תעופה">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1713327023739-fb362e20b96b?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">עדכוני תעופה</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">נובמבר 17, 2019</time>
+                <h3 class="news-title">מתחילים לחוש מחסור בטייסים בארה״ב</h3>
+                <p class="news-ex">סקר של Aviation Week ביחד עם Bank of America Merrill Lynch. תרגום ועיבוד – אילן הייט.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="עדכוני תעופה">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">עדכוני תעופה</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">נובמבר 17, 2019</time>
+                <h3 class="news-title">ארגון IATA יוצא למלחמה נגד תנועת ה-Flight Shaming</h3>
+                <p class="news-ex">הפעולה כנגד התנועה באה בעקבות החלשת הביקוש לטיסות שמדווחת באירופה.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="עדכוני תעופה">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1724424362395-089675432137?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">עדכוני תעופה</span></div>
+              <div class="p-6">
+                
+                <h3 class="news-title">האם ״האקרים״ יכולים להשתלט על מערכות מטוס?</h3>
+                
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="מאמרים מקצועיים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1552773346-ca6976a5d4ca?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">מאמרים מקצועיים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">פברואר 20, 2019</time>
+                <h3 class="news-title">אירוע חירום אינו הזמן המתאים לגלות מסכת חמצן לא שמישה</h3>
+                <p class="news-ex">פורסם ב-Aviation Week. תגובה מהירה לאבדן לחץ בקבינה.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="מאמרים מקצועיים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1570970580763-7993ca30d726?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">מאמרים מקצועיים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">ינואר 17, 2019</time>
+                <h3 class="news-title">השדה המגנטי של כדור הארץ מגלה פעילות – והגיאולוגים אינם יודעים מדוע</h3>
+                <p class="news-ex">מאמר מתוך Nature, מס׳ 565.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="מאמרים מקצועיים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1764547168268-1c8b531bce9f?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">מאמרים מקצועיים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">נובמבר 11, 2018</time>
+                <h3 class="news-title">מדריך לתקנת זמן טיסה ומנוחה</h3>
+                <p class="news-ex">כנהוג באיגודי הטייסים בעולם, איגוד הטייסים הישראלי מביא בפניכם חוברת הדרכה.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="כנסים ואירועים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1698760000166-459acd1e93c8?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">כנסים ואירועים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">מאי 8, 2019</time>
+                <h3 class="news-title">סיכום הכנס השנתי של IFALPA – ברלין 25-29/4/19</h3>
+                
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="כנסים ואירועים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1723059518530-1feec72f2771?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">כנסים ואירועים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">אוקטובר 17, 2017</time>
+                <h3 class="news-title">אמירות מתוך כנסים בין לאומיים</h3>
+                <p class="news-ex">התעופה העולמית, וכמובן גם התעופה בישראל, עוברת תמורות ושינויים.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="כנסים ואירועים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1587408811730-1a978e6c407d?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">כנסים ואירועים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">אוקטובר 17, 2017</time>
+                <h3 class="news-title">כנס בנושא ״עייפות והסחות דעת״</h3>
+                <p class="news-ex">על רקע תקנות ה-FTL התקיים כנס מקצועי בנושא עייפות והסחות דעת.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="טייסים מספרים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1520437358207-323b43b50729?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">טייסים מספרים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">פברואר 20, 2019</time>
+                <h3 class="news-title">הטיסה הקצרה ביותר / איתמר נוינר</h3>
+                <p class="news-ex">טיסות בנתיבי אוויר בינלאומיים הן בדרך כלל טיסות ארוכות מאוד, מקצה העולם אל קצהו.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="טייסים מספרים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1760609706460-f51ff4bf1510?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">טייסים מספרים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">ינואר 4, 2018</time>
+                <h3 class="news-title">סיפור ממלחמת העולם השנייה</h3>
+                
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="טייסים מספרים">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1566622246615-6dbe9c71629a?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">טייסים מספרים</span></div>
+              <div class="p-6">
+                <time class="text-sm text-ink-400">אוקטובר 16, 2017</time>
+                <h3 class="news-title">מלחמה ושלום בעיני טייס / קברניט אילן הייט</h3>
+                <p class="news-ex">שני אירועים שקרו לי בעברי – אחד של מלחמה ואחד של שלום.</p>
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+          <article class="news-card" data-cat="תאונות אויריות">
+            <a href="#news" class="block">
+              <div class="news-img"><img src="https://images.unsplash.com/photo-1510634047060-93a4747e85c4?auto=format&fit=crop&w=720&h=540&q=72" alt="" loading="lazy" /><span class="news-badge">תאונות אויריות</span></div>
+              <div class="p-6">
+                
+                <h3 class="news-title">אירועי בטיחות</h3>
+                
+                <span class="news-more">קרא עוד <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </a>
+          </article>
+        </div>
+        <p class="news-empty" hidden>אין פוסטים להצגה. נסו קטגוריה אחרת או מילת חיפוש אחרת.</p>
+      </div>
+
+      <div class="news-controls">
+        <button type="button" class="news-btn" data-dir="prev" aria-label="לפוסט הקודם">לאחור</button>
+        <div class="news-dots"></div>
+        <button type="button" class="news-btn is-primary" data-dir="next" aria-label="לפוסט הבא">קדימה</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IN THE MEDIA ============ -->
+<section id="media" class="scroll-mt-24 bg-ink-50 py-20 sm:py-28 lg:py-36">
+  <div class="mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-12 lg:px-8">
+    <div data-anim="stagger" class="lg:col-span-4">
+      <p class="eyebrow text-xs font-semibold uppercase text-sky-brand">בתקשורת</p>
+      <h2 data-split class="mt-4 text-4xl font-extrabold tracking-tight text-navy-900 sm:text-5xl">הארגון<br/>בכותרות</h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-600">כתבות, ראיונות ועמדות הארגון כפי שפורסמו בתקשורת.</p>
+    </div>
+    <div class="lg:col-span-8">
+      <ul data-anim="stagger" data-from="side" class="divide-y divide-ink-200 border-y border-ink-200">
+        <li>
+          <a href="#media" class="group flex items-center gap-6 py-7">
+            <span class="w-24 shrink-0 text-sm font-semibold text-ink-400">ספט׳ 2026</span>
+            <span class="flex-1">
+              <span class="block text-xs font-semibold uppercase tracking-wider text-sky-brand">ראיון</span>
+              <span class="mt-1 block text-lg font-bold text-navy-900 transition-colors group-hover:text-sky-brand sm:text-xl">יו״ר הארגון על אתגרי כוח האדם בתעופה האזרחית</span>
+            </span>
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink-200 text-ink-600 transition group-hover:border-sky-brand group-hover:bg-sky-brand group-hover:text-white"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 7L7 17M7 7h10v10" transform="scale(-1,1) translate(-24,0)"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a href="#media" class="group flex items-center gap-6 py-7">
+            <span class="w-24 shrink-0 text-sm font-semibold text-ink-400">אוג׳ 2026</span>
+            <span class="flex-1">
+              <span class="block text-xs font-semibold uppercase tracking-wider text-sky-brand">כתבה</span>
+              <span class="mt-1 block text-lg font-bold text-navy-900 transition-colors group-hover:text-sky-brand sm:text-xl">עמדת הטייסים בנושא תקינת שעות טיסה ומנוחה</span>
+            </span>
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink-200 text-ink-600 transition group-hover:border-sky-brand group-hover:bg-sky-brand group-hover:text-white"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 7L7 17M7 7h10v10" transform="scale(-1,1) translate(-24,0)"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a href="#media" class="group flex items-center gap-6 py-7">
+            <span class="w-24 shrink-0 text-sm font-semibold text-ink-400">יולי 2026</span>
+            <span class="flex-1">
+              <span class="block text-xs font-semibold uppercase tracking-wider text-sky-brand">פודקאסט</span>
+              <span class="mt-1 block text-lg font-bold text-navy-900 transition-colors group-hover:text-sky-brand sm:text-xl">מאחורי דלת הקוקפיט: שיחה על תרבות בטיחות</span>
+            </span>
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink-200 text-ink-600 transition group-hover:border-sky-brand group-hover:bg-sky-brand group-hover:text-white"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 7L7 17M7 7h10v10" transform="scale(-1,1) translate(-24,0)"/></svg></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT + MEMBERS ============ -->
+<section id="contact" class="scroll-mt-24 py-20 sm:py-28 lg:py-36">
+  <div class="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-5 lg:px-8">
+    <div data-anim="up" class="rounded-3xl border border-ink-100 bg-white p-6 shadow-card sm:p-12 lg:col-span-3">
+      <p class="eyebrow text-xs font-semibold uppercase text-sky-brand">צור קשר</p>
+      <h2 data-split class="mt-4 text-3xl font-extrabold tracking-tight text-navy-900 sm:text-4xl">נשמח לשמוע מכם</h2>
+      <form class="mt-10 grid gap-5 sm:grid-cols-2" onsubmit="event.preventDefault()">
+        <label class="grid gap-2 text-sm font-medium text-ink-600">שם מלא
+          <input type="text" class="rounded-xl border border-ink-200 bg-ink-50 px-4 py-3.5 text-base text-ink-900 outline-none transition focus:border-sky-brand focus:bg-white focus:ring-4 focus:ring-sky-brand/10" />
+        </label>
+        <label class="grid gap-2 text-sm font-medium text-ink-600">טלפון
+          <input type="tel" class="rounded-xl border border-ink-200 bg-ink-50 px-4 py-3.5 text-base text-ink-900 outline-none transition focus:border-sky-brand focus:bg-white focus:ring-4 focus:ring-sky-brand/10" />
+        </label>
+        <label class="grid gap-2 text-sm font-medium text-ink-600 sm:col-span-2">דוא״ל
+          <input type="email" dir="ltr" class="rounded-xl border border-ink-200 bg-ink-50 px-4 py-3.5 text-right text-base text-ink-900 outline-none transition focus:border-sky-brand focus:bg-white focus:ring-4 focus:ring-sky-brand/10" />
+        </label>
+        <label class="grid gap-2 text-sm font-medium text-ink-600 sm:col-span-2">הודעה
+          <textarea rows="4" class="resize-none rounded-xl border border-ink-200 bg-ink-50 px-4 py-3.5 text-base text-ink-900 outline-none transition focus:border-sky-brand focus:bg-white focus:ring-4 focus:ring-sky-brand/10"></textarea>
+        </label>
+        <button class="mt-2 rounded-full bg-sky-brand px-8 py-4 font-semibold text-white transition hover:bg-navy-700 sm:col-span-2 sm:justify-self-start">שליחת הודעה</button>
+      </form>
+
+      <!-- Office location map (Google Maps embed, no API key needed) -->
+      <div class="group relative mt-10 overflow-hidden rounded-2xl border border-ink-100 bg-ink-50">
+        <iframe
+          class="block h-72 w-full grayscale-[35%] transition duration-500 group-hover:grayscale-0 sm:h-80"
+          src="https://maps.google.com/maps?q=%D7%94%D7%91%D7%A2%D7%A9%22%D7%98%206%2C%20%D7%9C%D7%95%D7%93%2C%20%D7%99%D7%A9%D7%A8%D7%90%D7%9C&hl=iw&z=16&output=embed"
+          title="מפה – רחוב הבעש״ט 6, לוד" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <a href="https://www.google.com/maps/search/?api=1&query=%D7%94%D7%91%D7%A2%D7%A9%22%D7%98%206%2C%20%D7%9C%D7%95%D7%93" target="_blank" rel="noopener"
+           class="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-navy-900 shadow-card backdrop-blur transition hover:bg-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          ניווט למשרדי האיגוד
+        </a>
+      </div>
+    </div>
+
+    <div data-anim="stagger" class="grid gap-8 lg:col-span-2">
+      <div id="login" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-brand to-navy-800 p-8 text-white sm:p-10">
+        <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-sky-light/30 blur-2xl"></div>
+        <div class="relative">
+          <div class="grid h-12 w-12 place-items-center rounded-2xl bg-white/15">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          </div>
+          <h3 class="mt-6 text-2xl font-bold">אזור חברים</h3>
+          <p class="mt-3 leading-relaxed text-white/75">גישה למסמכים, הסכמים, הודעות פנימיות ושירותים ייעודיים לחברי הארגון.</p>
+          <a href="#login" class="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 font-semibold text-navy-900 transition hover:bg-sky-mist">
+            כניסה לאזור האישי
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-ink-50 p-8 sm:p-10">
+        <h3 class="text-lg font-bold text-navy-900">פרטי התקשרות</h3>
+        <p class="mt-2 text-sm font-medium text-sky-brand">האיגוד הארצי לטייסי נתיבי אוויר בישראל</p>
+        <ul class="mt-6 grid gap-5 text-ink-600">
+          <li class="flex items-start gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-sky-brand shadow-card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span class="pt-2 leading-relaxed">רחוב הבעש״ט 6, בניין המכון הגיאופיזי לישראל,<br/>אזור התעשייה הצפוני, לוד</span></li>
+          <li class="flex items-center gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-sky-brand shadow-card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span>טלפון: <a href="tel:+97289150694" dir="ltr" class="transition hover:text-sky-brand">08-9150694</a></span></li>
+          <li class="flex items-center gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-sky-brand shadow-card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 9V4h10v5"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6H7z"/></svg></span><span>פקס: <span dir="ltr">08-9150934</span></span></li>
+          <li class="flex items-center gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-sky-brand shadow-card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><a href="mailto:igud@isralpa.org.il" dir="ltr" class="transition hover:text-sky-brand">igud@isralpa.org.il</a></li>
+        </ul>
+        <div class="mt-8 border-t border-ink-200 pt-6">
+          <p class="text-sm font-bold text-navy-900">עקבו אחרינו</p>
+          <div class="mt-4 flex gap-3">
+            <a href="#" aria-label="פייסבוק" class="grid h-11 w-11 place-items-center rounded-xl bg-sky-brand text-white transition hover:-translate-y-0.5 hover:bg-navy-800"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21z"/></svg></a>
+            <a href="#" aria-label="אינסטגרם" class="grid h-11 w-11 place-items-center rounded-xl bg-sky-brand text-white transition hover:-translate-y-0.5 hover:bg-navy-800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ PARTNERS LOGO SLIDER ============ -->
+<section class="border-t border-ink-100 bg-white py-16 lg:py-20" aria-label="גופים ושותפים מקצועיים">
+  <div data-anim="up" class="mx-auto mb-10 max-w-7xl px-5 text-center lg:px-8">
+    <p class="eyebrow text-xs font-semibold uppercase text-sky-brand">שותפים ועמיתים</p>
+    <h2 class="mt-3 text-2xl font-extrabold tracking-tight text-navy-900 sm:text-3xl">הגופים שאנחנו עובדים איתם</h2>
+  </div>
+  <div class="logo-marquee" dir="ltr">
+    <div class="logo-track">
+      <ul>
+      <li class="logo-item"><img src="MATIRIALS/icons/IFALPA.png" alt="IFALPA" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/el-al.png" alt="אל על" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ISRAIR.png" alt="ישראייר" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ארקיע.png" alt="ארקיע" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/C.A.L.png" alt="C.A.L" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ECA.png" alt="ECA – European Cockpit Association" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/iata-logo.png" alt="IATA" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/icao.png" alt="ICAO" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ministry-of-transport.png" alt="משרד התחבורה" /></li>
+      </ul>
+      <ul aria-hidden="true">
+      <li class="logo-item"><img src="MATIRIALS/icons/IFALPA.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/el-al.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ISRAIR.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ארקיע.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/C.A.L.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ECA.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/iata-logo.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/icao.png" alt="" /></li>
+      <li class="logo-item"><img src="MATIRIALS/icons/ministry-of-transport.png" alt="" /></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-navy-950 text-white/60">
+  <div data-anim="stagger" class="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <div class="lg:col-span-2">
+      <p class="flex items-center gap-3 font-latin text-xl font-bold text-white"><svg width="40" height="40" aria-hidden="true"><use href="#isralpa-mark"/></svg>ISRALPA</p>
+      <p class="mt-2 text-sm">ארגון טייסי חברות התעופה בישראל</p>
+      <p class="mt-6 max-w-sm text-sm leading-relaxed">מחויבים לבטיחות הטיסה, למקצועיות ולרווחת הטייסים – בישראל ובעולם.</p>
+    </div>
+    <div>
+      <p class="text-sm font-semibold text-white">ניווט</p>
+      <ul class="mt-4 grid gap-2.5 text-sm">
+        <li><a class="transition hover:text-white" href="#top">דף הבית</a></li>
+        <li><a class="transition hover:text-white" href="#about">אודות ומטרות</a></li>
+        <li><a class="transition hover:text-white" href="#placement">מרכז השמה</a></li>
+        <li><a class="transition hover:text-white" href="#news">חדשות ועדכונים</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-sm font-semibold text-white">עוד</p>
+      <ul class="mt-4 grid gap-2.5 text-sm">
+        <li><a class="transition hover:text-white" href="#media">בתקשורת</a></li>
+        <li><a class="transition hover:text-white" href="#contact">צור קשר</a></li>
+        <li><a class="transition hover:text-white" href="#login">כניסת חברים</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-6 text-xs lg:px-8">
+      <p>© <span id="year"></span> ISRALPA. כל הזכויות שמורות.</p>
+      <p><a href="#" class="hover:text-white">הצהרת נגישות</a> · <a href="#" class="hover:text-white">מדיניות פרטיות</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ UI SCRIPTS ============ -->
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+  const menuBtn = document.getElementById('menuBtn');
+  const menuPanel = document.getElementById('menuPanel');
+  const menuLabel = menuBtn.querySelector('.burger-label');
+  function setMenu(open) {
+    document.body.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.setAttribute('aria-label', open ? 'סגירת תפריט' : 'פתיחת תפריט');
+    menuPanel.setAttribute('aria-hidden', !open);
+    menuLabel.textContent = open ? 'סגירה' : 'תפריט';
+    if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
+    else document.documentElement.style.overflow = open ? 'hidden' : '';
+  }
+  menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+  menuPanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+
+  // services accordion
+  const accPanels = [...document.querySelectorAll('.acc-panel')];
+  const openPanel = (panel) => accPanels.forEach(p => {
+    const on = p === panel;
+    p.classList.toggle('is-active', on);
+    p.setAttribute('aria-expanded', on);
+  });
+  const finePointer = matchMedia('(pointer: fine) and (min-width: 1024px)');
+  accPanels.forEach(p => {
+    p.addEventListener('mouseenter', () => { if (finePointer.matches) openPanel(p); });
+    p.addEventListener('click', () => openPanel(p));
+    p.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(p); } });
+  });
+
+  // news: tabs + search + 3D auto-slider (moves left -> right; RTL "next" reveals cards on the left)
+  (() => {
+    const shell = document.querySelector('.news-shell'); if (!shell) return;
+    const track = shell.querySelector('.news-track');
+    const cards = [...track.querySelectorAll('.news-card')];
+    const tabs = [...shell.querySelectorAll('.news-tab')];
+    const search = shell.querySelector('.news-search input');
+    const empty = shell.querySelector('.news-empty');
+    const dotsBox = shell.querySelector('.news-dots');
+    const [prevBtn, nextBtn] = shell.querySelectorAll('.news-btn');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cat = 'הכל', paused = false, inView = false, timer;
+
+    const visible = () => cards.filter(c => !c.hidden);
+    let current = 0, startIdx = 0;
+    // centre card i in the stage (works for RTL negative scrollLeft too)
+    const centre = (i, smooth = true) => {
+      const v = visible(); if (!v[i]) return;
+      const box = track.getBoundingClientRect(), r = v[i].getBoundingClientRect();
+      track.scrollBy({ left: (r.left + r.width / 2) - (box.left + box.width / 2), behavior: smooth ? 'smooth' : 'instant' });
+      current = i;
+    };
+    const go = dir => {                                              // dir 1 = next (cards travel left -> right)
+      const n = visible().length; if (!n) return;
+      let t = current + dir;
+      if (t >= n) t = startIdx;                                      // wrap back to the opening card
+      if (t < 0) t = 0;
+      centre(t);
+    };
+
+    function filter() {
+      const q = search.value.trim().toLowerCase();
+      cards.forEach(c => {
+        const okCat = cat === 'הכל' || c.dataset.cat === cat;
+        const okQ = !q || c.textContent.toLowerCase().includes(q);
+        c.hidden = !(okCat && okQ);
+      });
+      const n = visible().length;
+      empty.hidden = n > 0;
+      track.hidden = n === 0;
+      dotsBox.innerHTML = Array.from({ length: n }, () => '<i></i>').join('');
+      // open on the 3rd card so the stage is full on both sides
+      startIdx = Math.min(2, Math.floor(Math.max(0, n - 1) / 2));
+      track.scrollTo({ left: 0, behavior: 'instant' });
+      centre(startIdx, false);
+      depth();
+    }
+
+    // 3D depth: cards tilt and shrink toward the edges of the stage
+    function depth() {
+      const box = track.getBoundingClientRect(), mid = box.left + box.width / 2;
+      let best = 0, bestD = 1e9;
+      visible().forEach((c, i) => {
+        const r = c.getBoundingClientRect();
+        const d = Math.max(-1.4, Math.min(1.4, (r.left + r.width / 2 - mid) / (box.width / 2)));
+        c.style.transform = `rotateY(${(-d * 16).toFixed(2)}deg) scale(${(1 - Math.abs(d) * .08).toFixed(3)})`;
+        c.style.opacity = (1 - Math.max(0, Math.abs(d) - .6) * .6).toFixed(3);
+        if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = i; }
+      });
+      current = best;                                                // keep in sync with swipes / drags
+      [...dotsBox.children].forEach((dot, i) => dot.classList.toggle('is-active', i === best));
+      prevBtn.disabled = best === 0;
+    }
+    track.addEventListener('scroll', depth, { passive: true });
+    addEventListener('resize', depth);
+
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => { x.classList.toggle('is-active', x === t); x.setAttribute('aria-selected', x === t); });
+      cat = t.dataset.tab; filter();
+    }));
+    search.addEventListener('input', filter);
+    prevBtn.addEventListener('click', () => go(-1));
+    nextBtn.addEventListener('click', () => go(1));
+
+    // autoplay: only while visible, paused on hover / focus / touch
+    const tick = () => { if (!paused && inView && !reduce && visible().length > 1) go(1); };
+    dotsBox.addEventListener('click', e => { const i = [...dotsBox.children].indexOf(e.target); if (i > -1) centre(i); });
+    timer = setInterval(tick, 3600);
+    ['pointerenter', 'focusin', 'touchstart'].forEach(e => shell.addEventListener(e, () => { paused = true; }, { passive: true }));
+    ['pointerleave', 'focusout'].forEach(e => shell.addEventListener(e, () => { paused = false; }));
+    shell.addEventListener('touchend', () => setTimeout(() => { paused = false; }, 5000), { passive: true });
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: .3 }).observe(shell);
+    filter();
+  })();
+
+  // active nav link on scroll
+  const links = [...document.querySelectorAll('.menu-link')];
+  const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const id = '#' + e.target.id;
+      links.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => spy.observe(s));
+</script>
+
+
+<!-- ============ MOTION (GSAP + ScrollTrigger + Lenis) ============ -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const root = document.documentElement;
+  if (!root.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
+    root.classList.remove('motion', 'is-loading');
+    return;
+  }
+  window.__animReady = true;
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.MotionPathPlugin) gsap.registerPlugin(MotionPathPlugin);
+  const EASE = 'expo.out';
+  const $ = (q, c = document) => c.querySelector(q);
+  const $$ = (q, c = document) => [...c.querySelectorAll(q)];
+
+  // ---------- Split headings into masked lines ----------
+  $$('[data-split]').forEach(el => {
+    el.innerHTML = el.innerHTML.split(/<br\s*\/?>/i)
+      .map(part => `<span class="line"><span class="line-inner">${part.trim()}</span></span>`).join('');
+  });
+
+  // ---------- Smooth scroll ----------
+  const lenis = window.Lenis ? new Lenis({ duration: 1.15, smoothWheel: true }) : null;
+  window.__lenis = lenis;
+  if (lenis) {
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+    lenis.stop();
+  }
+
+  // ---------- Initial (hidden) states, set under the preloader ----------
+  const header = $('#siteHeader');
+  const heroIn = $('.hero-in');
+  const heroEyebrow = heroIn.children[0];
+  const heroLines = $$('h1 .line-inner', heroIn);
+  const heroText = heroIn.children[2];
+  const heroCtas = $$('a', heroIn.children[3]);
+  const noTransition = { transition: 'none' };
+
+  gsap.set('.hero-media', { clipPath: 'inset(16% 12% 16% 12% round 40px)', scale: 1.3 });
+  gsap.set(heroLines, { yPercent: 115, rotate: 4 });
+  gsap.set([heroEyebrow, heroText], { y: 30, opacity: 0 });
+  gsap.set(heroCtas, { y: 30, opacity: 0, ...noTransition });
+  gsap.set(header, { yPercent: -110 });
+
+  // ---------- Generic enter / leave (both scroll directions) ----------
+  const SHOW = { x: 0, y: 0, yPercent: 0, scale: 1, rotate: 0, opacity: 1 };
+  function enterLeave(trigger, targets, from, out, stagger = 0, start = 'top 88%') {
+    const T = gsap.utils.toArray(targets);
+    if (!T.length) return;
+    gsap.set(T, { ...from, ...noTransition });
+    const enter = (fromState) => gsap.fromTo(T, { ...fromState, ...noTransition },
+      { ...SHOW, duration: 1.25, ease: EASE, stagger, overwrite: true, clearProps: 'transform,transition' });
+    const leave = (toState) => gsap.to(T,
+      { ...toState, ...noTransition, duration: .65, ease: 'power3.in', stagger: stagger * .5, overwrite: true });
+    ScrollTrigger.create({
+      trigger, start, end: 'bottom 6%',
+      onEnter: () => enter(from),
+      onLeave: () => leave(out),
+      onEnterBack: () => enter(out),
+      onLeaveBack: () => leave(from),
+    });
+  }
+
+  function buildScrollScenes() {
+    // Hero exits: text drifts up & fades, photo sinks and zooms (scrubbed)
+    gsap.timeline({ scrollTrigger: { trigger: '.hero-sky', start: 'top top', end: 'bottom top', scrub: true } })
+      .to(heroIn, { y: -160, opacity: 0, ease: 'none' }, 0)
+      .to('.hero-media', { yPercent: 18, scale: 1.12, ease: 'none' }, 0);
+
+    // Masked heading lines (hero h1 handled by intro)
+    $$('[data-split]').filter(h => !h.closest('.hero-in')).forEach(h => {
+      enterLeave(h, $$('.line-inner', h), { yPercent: 115, rotate: 3 }, { yPercent: -115, rotate: -2 }, .1, 'top 90%');
+    });
+
+    // Quick-links strip: card rises, icons pop in sequence
+    $$('[data-anim="strip"]').forEach(card => {
+      enterLeave(card, card, { y: 90, opacity: 0 }, { y: -50, opacity: 0 }, 0, 'top 95%');
+      enterLeave(card, $$('.quick-icon', card), { scale: .4, rotate: -30, opacity: 0 }, { scale: .8, opacity: 0 }, .09, 'top 95%');
+      enterLeave(card, $$('.quick-link > span:last-child', card), { y: 24, opacity: 0 }, { y: -16, opacity: 0 }, .09, 'top 95%');
+    });
+
+    // Elements rising on their own
+    $$('[data-anim="up"]').forEach(el => enterLeave(el, el, { y: 80, opacity: 0 }, { y: -60, opacity: 0 }));
+
+    // Staggered children (headings with data-split animate separately)
+    $$('[data-anim="stagger"]').forEach(group => {
+      const kids = [...group.children].filter(c => !c.matches('[data-split]'));
+      const mode = group.dataset.from;
+      const from = mode === 'side' ? { x: -60, opacity: 0 }
+                 : mode === 'deep' ? { y: 120, scale: .94, opacity: 0 }
+                 : { y: 60, opacity: 0 };
+      const out = mode === 'side' ? { x: 40, opacity: 0 } : { y: -50, opacity: 0 };
+      enterLeave(group, kids, from, out, .11);
+      // children of a nested text block with an eyebrow + split heading
+      kids.filter(k => k.querySelector(':scope > [data-split]')).forEach(k => {
+        enterLeave(k, [...k.children].filter(c => !c.matches('[data-split]')), { y: 40, opacity: 0 }, { y: -30, opacity: 0 }, .1);
+      });
+    });
+
+    // Placement block: window opens on the way in, recedes on the way out
+    $$('[data-anim="clip"]').forEach(block => {
+      gsap.fromTo(block, { clipPath: 'inset(10% 8% 10% 8% round 32px)' }, {
+        clipPath: 'inset(0% 0% 0% 0% round 32px)', ease: 'none',
+        scrollTrigger: { trigger: block, start: 'top 95%', end: 'top 35%', scrub: true },
+      });
+      gsap.to(block, {
+        scale: .92, opacity: .35, ease: 'none',
+        scrollTrigger: { trigger: block, start: 'bottom 55%', end: 'bottom top', scrub: true },
+      });
+      $$('.blur-3xl', block).forEach((blob, i) => gsap.to(blob, {
+        yPercent: i ? -60 : 60, ease: 'none',
+        scrollTrigger: { trigger: block, start: 'top bottom', end: 'bottom top', scrub: true },
+      }));
+    });
+
+    // Marquee slides with scroll
+    $$('.marquee').forEach(m => gsap.fromTo(m, { xPercent: 0 }, {
+      xPercent: -35, ease: 'none',
+      scrollTrigger: { trigger: m, start: 'top bottom', end: 'bottom top', scrub: .6 },
+    }));
+
+    // Scroll progress bar
+    gsap.to('#scrollProgress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
+
+    buildFlight();
+    ScrollTrigger.refresh();
+  }
+
+  // ---------- Flight route: blue plane leaves the hero and zig-zags down the page ----------
+  function buildFlight() {
+    if (!window.MotionPathPlugin) return;
+    const hero = $('.hero-sky'), footer = $('footer');
+    const layer = document.createElement('div');
+    layer.id = 'flightLayer';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path id="flightTrack"/><path id="flightProgress"/></svg>`;
+    document.body.appendChild(layer);
+    const plane = document.createElement('div');
+    plane.id = 'flightPlane';
+    plane.setAttribute('aria-hidden', 'true');
+    // nose points right (0deg) so autoRotate follows the path direction
+    plane.innerHTML = `<svg viewBox="0 0 24 24"><defs><linearGradient id="planeGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#3fa9f5"/><stop offset="1" stop-color="#0f4f92"/></linearGradient></defs>
+        <path transform="rotate(90 12 12)" fill="url(#planeGrad)" stroke="#fff" stroke-width=".9" stroke-linejoin="round"
+          d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>`;
+    document.body.appendChild(plane);
+
+    const svg = layer.querySelector('svg');
+    const track = layer.querySelector('#flightTrack');
+    const prog = layer.querySelector('#flightProgress');
+    const docTop = el => { let y = 0; for (let n = el; n; n = n.offsetParent) y += n.offsetTop; return y; };
+    let tl = null, startY = 0, heroBottom = 0, totalDur = 1;
+
+    // Route: down the empty side margins, switching sides only in the whitespace between sections,
+    // so the line never runs across text.
+    function layout() {
+      const W = document.documentElement.clientWidth;
+      const H = docTop(footer);
+      layer.style.top = '0px';
+      layer.style.height = H + 'px';
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+      const sections = [...document.querySelectorAll('main > section, body > section')]
+        .filter(sec => sec !== hero && sec.firstElementChild);
+      const docLeft = el => { let x = 0; for (let n = el; n; n = n.offsetParent) x += n.offsetLeft; return x; };
+      const hasBg = el => { const c = getComputedStyle(el).backgroundColor; return c && c !== 'transparent' && !/^rgba\(.*,\s*0\)$/.test(c); };
+
+      // the line runs through the middle of the free side margin, clear of the widest box on the page
+      // (full-bleed strips such as the marquee and the logo slider don't count)
+      const boxed = sections.map(sec => sec.firstElementChild).filter(el => el.offsetWidth < W - 8);
+      const contentLeft = boxed.length ? Math.min(...boxed.map(docLeft)) : 32;
+      const minEdge = W < 768 ? 8 : 14;
+      const xL = Math.max(minEdge, contentLeft / 2), xR = W - xL;
+
+      // obstacles: a section with its own background counts whole (so the line keeps clear of the
+      // tinted area); otherwise its first child (skips the section padding)
+      const blocks = sections
+        .map(sec => { const el = hasBg(sec) ? sec : sec.firstElementChild; const t = docTop(el); return { t, b: t + el.offsetHeight }; })
+        .sort((a, b) => a.t - b.t);
+
+      heroBottom = docTop(hero) + hero.offsetHeight;
+      startY = heroBottom - 56;
+      const segs = [];   // { d, dy, cross }
+      let x = W / 2, y = startY;
+      const d0 = `M ${x} ${y}`;
+      // leave the hero: swing from the centre to the right margin
+      const y1 = y + 240;
+      segs.push({ d: ` C ${x} ${y + 150}, ${xR} ${y + 70}, ${xR} ${y1}`, dy: 240 });
+      x = xR; y = y1;
+
+      for (let i = 1; i < blocks.length; i++) {
+        const gapTop = blocks[i - 1].b, gapBot = blocks[i].t;
+        const gap = gapBot - gapTop;
+        if (gap < 40) continue;
+        const gy = (gapTop + gapBot) / 2;
+        const r = Math.max(8, Math.min(46, gap / 2 - 6));
+        if (gy - r <= y + 4) continue;
+        const nx = x === xR ? xL : xR, s = Math.sign(nx - x);
+        segs.push({ d: ` L ${x} ${gy - r}`, dy: gy - r - y });
+        segs.push({ d: ` Q ${x} ${gy} ${x + s * r} ${gy} L ${nx - s * r} ${gy} Q ${nx} ${gy} ${nx} ${gy + r}`, dy: 2 * r, cross: true });
+        x = nx; y = gy + r;
+      }
+      const endY = H - 40;
+      if (endY > y) segs.push({ d: ` L ${x} ${endY}`, dy: endY - y });
+
+      // cumulative lengths (for motionPath start/end and the drawn line)
+      let d = d0;
+      const cum = [];
+      segs.forEach(sg => { d += sg.d; track.setAttribute('d', d); cum.push(track.getTotalLength()); });
+      prog.setAttribute('d', d);
+      const len = cum[cum.length - 1] || 1;
+      prog.style.strokeDasharray = len;
+
+      // time ≈ document y: crossings get a short scroll window, borrowed from the next straight run
+      // first leg: the plane eases from the bottom of the screen up to ~55% of the viewport
+      segs[0].firstLeg = true;
+      const CROSS = W < 768 ? 160 : 220;
+      let debt = 0;
+      segs.forEach(sg => {
+        if (sg.firstLeg) { sg.dur = Math.max(80, startY + sg.dy - innerHeight * .55); }
+        else if (sg.cross) { sg.dur = CROSS; debt += CROSS - sg.dy; }
+        else { sg.dur = Math.max(30, sg.dy - debt); debt = Math.max(0, debt - sg.dy + 30); }
+      });
+      return { segs, cum, len };
+    }
+
+    function build() {
+      if (tl) { tl.scrollTrigger && tl.scrollTrigger.kill(); tl.kill(); }
+      const { segs, cum, len } = layout();
+      totalDur = segs.reduce((a, s) => a + s.dur, 0);
+      tl = gsap.timeline({
+        scrollTrigger: {
+          start: 0,
+          end: () => totalDur,
+          scrub: 1, invalidateOnRefresh: true,
+        },
+        // above the hero photo while it is still in the hero, behind the content after that
+        onUpdate: () => {
+          const py = gsap.getProperty(plane, 'y');
+          plane.style.zIndex = py < heroBottom - 24 ? 30 : -1;
+          plane.classList.toggle('is-idle', tl.progress() < .004);
+        },
+      });
+      let t = 0;
+      segs.forEach((sg, k) => {
+        const a = (k ? cum[k - 1] : 0) / len, b = cum[k] / len;
+        tl.to(plane, {
+          motionPath: { path: track, align: track, alignOrigin: [.5, .5], autoRotate: true, start: a, end: b },
+          duration: sg.dur, ease: 'none', immediateRender: false,
+        }, t);
+        tl.fromTo(prog, { strokeDashoffset: len - a * len }, { strokeDashoffset: len - b * len, duration: sg.dur, ease: 'none', immediateRender: false }, t);
+        t += sg.dur;
+      });
+      tl.scrollTrigger.refresh();
+      tl.progress(Math.max(tl.scrollTrigger.progress, .0001));
+    }
+    build();
+
+    // page height / width changes (late images, resize) -> rebuild the route
+    let timer, lastW = 0, lastH = 0;
+    new ResizeObserver(() => {
+      const W = document.documentElement.clientWidth, H = document.body.offsetHeight;
+      if (W === lastW && Math.abs(H - lastH) < 4) return;
+      lastW = W; lastH = H;
+      clearTimeout(timer);
+      timer = setTimeout(build, 250);
+    }).observe(document.body);
+  }
+
+  // ---------- Intro timeline ----------
+  const plCount = $('#plCount');
+  const counter = { v: 0 };
+  const intro = gsap.timeline({ defaults: { ease: EASE } });
+  intro
+    .from('.pl-word span', { yPercent: 110, duration: 1, stagger: .055 })
+    .from('.pl-sub span', { yPercent: 110, duration: .9 }, .25)
+    .to(counter, { v: 100, duration: 1.6, ease: 'power2.inOut', onUpdate: () => plCount.textContent = Math.round(counter.v) }, .1)
+    .to('.pl-bar i', { scaleX: 1, duration: 1.6, ease: 'power2.inOut' }, .1)
+    .to('.pl-inner', { yPercent: -40, opacity: 0, duration: .6, ease: 'power3.in' })
+    .to(['.pl-count', '.pl-mark'], { opacity: 0, duration: .4 }, '<')
+    .to('#preloader', { clipPath: 'inset(0% 0% 100% 0%)', duration: 1.15, ease: 'expo.inOut' }, '-=.15')
+    .add(() => root.classList.remove('is-loading'), '<')
+    .to('.hero-media', { clipPath: 'inset(0% 0% 0% 0% round 0px)', scale: 1, duration: 2 }, '-=.8')
+    .to(header, { yPercent: 0, duration: 1.2 }, '-=1.6')
+    .to(heroEyebrow, { y: 0, opacity: 1, duration: 1 }, '-=1.5')
+    .to(heroLines, { yPercent: 0, rotate: 0, duration: 1.3, stagger: .12 }, '-=1.4')
+    .to(heroText, { y: 0, opacity: 1, duration: 1.1 }, '-=1.05')
+    .to(heroCtas, { y: 0, opacity: 1, duration: 1, stagger: .08, clearProps: 'transform,transition' }, '-=.95')
+    .add(() => {
+      $('#preloader')?.remove();
+      lenis?.start();
+      buildScrollScenes();
+    }, '-=1.2');
+
+  // ---------- Section wipe for in-page links ----------
+  const wipe = $('#wipe');
+  let wiping = false;
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    const target = id.length > 1 && $(id);
+    if (!target) return;
+    e.preventDefault();
+    if (wiping) return;
+    wiping = true;
+    gsap.timeline({ onComplete: () => { wiping = false; } })
+      .set(wipe, { display: 'grid' })
+      .fromTo(wipe, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: .75, ease: 'expo.inOut' })
+      .fromTo('.wipe-mark', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: .45, ease: EASE }, '-=.3')
+      .add(() => {
+        if (lenis) lenis.scrollTo(target, { immediate: true, force: true, offset: id === '#top' ? 0 : -80 });
+        else target.scrollIntoView();
+        ScrollTrigger.update();
+      })
+      .to('.wipe-mark', { y: -30, opacity: 0, duration: .35, ease: 'power2.in' }, '+=.15')
+      .to(wipe, { clipPath: 'inset(0% 0% 100% 0%)', duration: .85, ease: 'expo.inOut' }, '-=.1')
+      .set(wipe, { display: 'none' });
+  }));
+
+  // ---------- Cursor + magnetic buttons (mouse only) ----------
+  if (matchMedia('(pointer: fine)').matches) {
+    const cursor = $('#cursor');
+    const cx = gsap.quickTo(cursor, 'x', { duration: .45, ease: 'power3' });
+    const cy = gsap.quickTo(cursor, 'y', { duration: .45, ease: 'power3' });
+    addEventListener('pointermove', e => { cx(e.clientX); cy(e.clientY); }, { passive: true });
+    $$('a, button, input, textarea').forEach(el => {
+      el.addEventListener('pointerenter', () => cursor.classList.add('is-hover'));
+      el.addEventListener('pointerleave', () => cursor.classList.remove('is-hover'));
+    });
+    $$('[data-magnetic]').forEach(btn => {
+      const mx = gsap.quickTo(btn, 'x', { duration: .6, ease: 'elastic.out(1, .4)' });
+      const my = gsap.quickTo(btn, 'y', { duration: .6, ease: 'elastic.out(1, .4)' });
+      // Tailwind's `transition` includes transform, which would fight the magnet — keep colour transitions only
+      btn.addEventListener('pointerenter', () => { btn.style.transition = 'background-color .3s, color .3s, border-color .3s, box-shadow .3s'; });
+      btn.addEventListener('pointermove', e => {
+        const r = btn.getBoundingClientRect();
+        mx((e.clientX - r.left - r.width / 2) * .3);
+        my((e.clientY - r.top - r.height / 2) * .4);
+      });
+      btn.addEventListener('pointerleave', () => { mx(0); my(0); });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

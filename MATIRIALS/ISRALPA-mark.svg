@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="ISRALPA">
+  <title>ISRALPA – סמל</title>
+  <mask id="isralpa-mark-cut" maskUnits="userSpaceOnUse" x="-2" y="-2" width="104" height="104">
+    <circle cx="50" cy="50" r="50" fill="#fff"/>
+    <g fill="none" stroke="#000">
+      <circle cx="50" cy="0" r="11.25" stroke-width="5.5"/>
+      <circle cx="50" cy="0" r="25.25" stroke-width="5.5"/>
+      <circle cx="50" cy="0" r="39.25" stroke-width="5.5"/>
+      <circle cx="50" cy="0" r="53.25" stroke-width="5.5"/>
+      <path d="M-2 52 L16 65 M102 52 L84 65" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <path d="M44.5 54 C46.8 63 48 76 50 88 C52 76 53.2 63 55.5 54 Z" fill="#000"/>
+  </mask>
+  <rect width="100" height="100" fill="#1F419A" mask="url(#isralpa-mark-cut)"/>
+</svg>
