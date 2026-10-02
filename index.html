@@ -8,7 +8,7 @@
 <meta name="description" content="ארגון טייסי חברות התעופה בישראל – ייצוג מקצועי, בטיחות טיסה ורווחת הטייסים." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <script>
   // Motion is opt-in: only when the visitor allows motion. Safety net removes it if GSAP never boots.
   (function () {
@@ -23,7 +23,7 @@
   tailwind.config = {
     theme: {
       extend: {
-        fontFamily: { sans: ['"Open Sans"', 'system-ui', 'sans-serif'], latin: ['"Open Sans"', 'system-ui', 'sans-serif'] },
+        fontFamily: { sans: ['Assistant', 'system-ui', 'sans-serif'], latin: ['Rubik', 'Assistant', 'sans-serif'], display: ['Rubik', 'Assistant', 'sans-serif'] },
         colors: {
           navy: { 950: '#04162b', 900: '#071f3d', 800: '#0b2d55', 700: '#0f3d70' },
           sky:  { brand: '#1167b1', light: '#3fa9f5', mist: '#e8f3fc' },
@@ -39,7 +39,7 @@
 </script>
 <style>
   html, body { overflow-x: clip; }
-  body { font-family: 'Open Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Assistant', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
   /* Hero sky */
   .hero-sky { background: #071f3d; }
@@ -81,6 +81,11 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  /* Typography: Rubik for headings (600-700), Assistant for running text */
+  :is(h1, h2, h3, h4, .job-title, .job-num, .news-title, .pl-word, .wipe-mark, .acc-vtitle) { font-family: 'Rubik', 'Assistant', sans-serif; }
+  :is(h1, h2)[class], .pl-word, .job-title { font-weight: 700; }
+  :is(h3, h4)[class], .news-title, .job-num, .acc-vtitle { font-weight: 600; }
+
   /* Header */
   .site-header { transition: background-color .35s ease, box-shadow .35s ease, color .35s ease; }
   .site-header.scrolled { background: rgba(255,255,255,.86); backdrop-filter: saturate(180%) blur(16px); box-shadow: 0 1px 0 rgba(15,27,42,.06); }
@@ -105,18 +110,25 @@
     color: #fff; clip-path: inset(0 0 0 0);
   }
   .pl-inner { text-align: center; }
-  .pl-word { display: flex; justify-content: center; overflow: hidden; font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: clamp(44px, 9vw, 112px); letter-spacing: .06em; line-height: 1.05; }
+  .pl-logo { display: block; width: clamp(64px, 7vw, 100px); height: clamp(64px, 7vw, 100px); margin: 0 auto 26px; color: #fff; filter: drop-shadow(0 10px 30px rgba(63,169,245,.35)); }
+  .pl-word { display: flex; justify-content: center; overflow: hidden; font-family: 'Assistant', sans-serif; font-weight: 700; font-size: clamp(44px, 9vw, 112px); letter-spacing: .06em; line-height: 1.05; }
   .pl-word span { display: inline-block; }
-  .pl-sub { margin-top: 10px; overflow: hidden; font-family: 'Open Sans', sans-serif; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+  .pl-wordwrap { position: relative; }
+  .pl-outline span { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.5); }
+  .pl-fill { position: absolute; inset: 0; clip-path: inset(100% 0 0 0); }
+  .pl-fill span { color: #fff; }
+  .pl-he { margin-top: 12px; overflow: hidden; font-size: 14px; font-weight: 400; letter-spacing: .3em; color: rgba(255,255,255,.5); white-space: nowrap; }
+  .pl-he span { display: inline-block; }
+  .pl-sub { margin-top: 10px; overflow: hidden; font-family: 'Assistant', sans-serif; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.5); }
   .pl-sub span { display: inline-block; }
   .pl-bar { width: min(320px, 60vw); height: 2px; margin: 34px auto 0; background: rgba(255,255,255,.12); overflow: hidden; }
   .pl-bar i { display: block; height: 100%; background: linear-gradient(90deg, #3fa9f5, #fff); transform: scaleX(0); transform-origin: left; }
-  .pl-count { position: absolute; bottom: 28px; left: 32px; font-family: 'Open Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,.55); font-variant-numeric: tabular-nums; }
+  .pl-count { position: absolute; bottom: 28px; left: 32px; font-family: 'Assistant', sans-serif; font-size: 13px; color: rgba(255,255,255,.55); font-variant-numeric: tabular-nums; }
   .pl-mark { position: absolute; bottom: 28px; right: 32px; font-size: 13px; color: rgba(255,255,255,.55); }
 
   /* Section wipe (in-page navigation) */
   #wipe { display: none; position: fixed; inset: 0; z-index: 90; place-items: center; background: #071f3d; color: #fff; clip-path: inset(100% 0 0 0); }
-  .wipe-mark { font-family: 'Open Sans', sans-serif; font-weight: 700; letter-spacing: .3em; font-size: 14px; }
+  .wipe-mark { font-family: 'Assistant', sans-serif; font-weight: 700; letter-spacing: .3em; font-size: 14px; }
 
   /* Scroll progress */
   #scrollProgress { position: fixed; top: 0; right: 0; left: 0; height: 3px; z-index: 60; transform: scaleX(0); transform-origin: right; background: linear-gradient(to left, #3fa9f5, #1167b1); pointer-events: none; }
@@ -234,11 +246,15 @@
     transition-delay: calc(.08s + (5 - var(--i)) * .045s), 0s; /* closing: bottom item drops first */
   }
   .menu-open .menu-link { transform: none; transition: transform .9s cubic-bezier(.2,.7,.2,1), color .3s ease; transition-delay: calc(.25s + var(--i) * .07s), 0s; }
-  .menu-num { font-family: 'Open Sans', sans-serif; font-size: 12px; font-weight: 500; color: rgba(255,255,255,.55); min-width: 28px; }
+  .menu-num { font-family: 'Assistant', sans-serif; font-size: 12px; font-weight: 500; color: rgba(255,255,255,.55); min-width: 28px; }
   .menu-text { position: relative; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
-  .menu-link:hover .menu-text, .menu-link.is-active .menu-text { transform: translateX(-14px); }
-  .menu-link:hover .menu-num, .menu-link.is-active .menu-num { color: #9fd6ff; }
-  .menu-link:hover, .menu-link.is-active { color: #cfeaff; }
+  .menu-link:hover .menu-text { transform: translateX(-14px); }
+  .menu-link, .menu-sub { font-family: 'Rubik', 'Assistant', sans-serif; }
+  .menu-link { font-weight: 300; }
+  .sub-job b { font-weight: 500; }
+  .sub-cats a, .sub-all { font-weight: 400; }
+  .menu-link:hover .menu-num { color: #3fa9f5; }
+  .menu-link:hover { color: #3fa9f5; }
   .menu-link { align-items: center; }
   .menu-thumb {
     display: inline-block; flex: none; width: 0; height: 1em; border-radius: 9999px;
@@ -249,6 +265,42 @@
   }
   .menu-link:hover .menu-thumb, .menu-link:focus-visible .menu-thumb { width: 2.6em; opacity: 1; transform: none; }
   @media (hover: none) { .menu-thumb { display: none; } }
+  /* mega-menu dropdowns (hover / keyboard focus), floating so the list never shifts */
+  .menu-ready .menu-list li { overflow: visible; }            /* after the links have risen in */
+  .menu-list li.has-sub { position: relative; }
+  .menu-list li.has-sub:hover, .menu-list li.has-sub:focus-within { z-index: 5; }
+  .menu-sub {                                             /* accordion: animates the exact content height, pushes the next items down */
+    display: grid; grid-template-rows: 0fr; opacity: 0;
+    transition: grid-template-rows .65s cubic-bezier(.65,0,.35,1) .08s, opacity .4s ease .08s;   /* small close delay = no flicker between items */
+  }
+  .menu-sub-inner { min-height: 0; overflow: hidden; padding: 0 48px 0 0; }
+  .menu-sub-inner > * { opacity: 0; transform: translateY(-10px); transition: opacity .3s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+  .menu-ready li.has-sub:hover .menu-sub, .menu-ready li.has-sub:focus-within .menu-sub {
+    grid-template-rows: 1fr; opacity: 1;
+    transition: grid-template-rows .65s cubic-bezier(.65,0,.35,1), opacity .35s ease;
+  }
+  .menu-ready li.has-sub:hover .menu-sub-inner > *, .menu-ready li.has-sub:focus-within .menu-sub-inner > * { opacity: 1; transform: none; transition-delay: .18s; }
+  .menu-sub-inner > :first-child { margin-top: 6px; }
+  .menu-sub-inner > :last-child { margin-bottom: 22px; }
+  .sub-jobs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .sub-cats { column-gap: 40px; }
+  .sub-job { display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 14px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); transition: background .3s, transform .3s; }
+  .sub-job:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
+  .sub-job:hover b { color: #3fa9f5; }
+  .sub-job img { width: 96px; height: 68px; flex: none; border-radius: 10px; object-fit: cover; }
+  .sub-job b { display: block; font-size: 16px; font-weight: 600; line-height: 1.25; color: #fff; }
+  .sub-job small { display: block; margin-top: 2px; font-size: 12px; color: rgba(255,255,255,.65); line-height: 1.3; }
+  .sub-all { margin-top: 14px; display: inline-flex; align-items: center; gap: 10px; padding: 0; font-size: 15px; font-weight: 500; color: #fff; background: none; transition: color .3s; }
+  .sub-all:hover { color: #3fa9f5; }
+  .sub-all:hover .sub-arrow { border-color: #3fa9f5; }
+  .sub-cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 24px; }
+  .sub-cats a { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 4px; font-size: 17px; color: #fff; border-bottom: 1px solid rgba(255,255,255,.12); transition: color .3s; }
+  .sub-cats a:hover { color: #3fa9f5; }
+  .sub-arrow { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 9999px; border: 1px solid rgba(255,255,255,.35); color: #fff; transition: background .3s, color .3s, transform .3s; }
+  .sub-cats a:hover .sub-arrow, .sub-all:hover .sub-arrow { background: #fff; color: #071f3d; transform: translateX(-3px); }
+  .sub-all .sub-arrow { width: 28px; height: 28px; border-color: rgba(255,255,255,.5); }
+  @media (max-width: 767px), (hover: none) { .menu-sub { display: none; } }
+
   .menu-side { opacity: 0; transform: translateY(30px); transition: opacity .3s ease, transform .4s cubic-bezier(.7,0,.84,0); }
   .menu-open .menu-side { opacity: 1; transform: none; transition: opacity .6s ease .55s, transform .9s cubic-bezier(.2,.7,.2,1) .55s; }
   .glass-card {
@@ -290,7 +342,7 @@
   .acc-collapsed { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 28px 0; transition: opacity .35s ease; }
   .acc-panel.is-active .acc-collapsed { opacity: 0; pointer-events: none; }
   .acc-vtitle { writing-mode: vertical-rl; font-size: 20px; font-weight: 700; white-space: nowrap; letter-spacing: .01em; }
-  .acc-num { font-family: 'Open Sans', sans-serif; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.55); }
+  .acc-num { font-family: 'Assistant', sans-serif; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.55); }
   .acc-content {
     position: absolute; right: 0; bottom: 0; width: min(460px, 100%); padding: 36px;
     opacity: 0; transform: translateY(30px); pointer-events: none;
@@ -366,8 +418,8 @@
   .news-btn[data-dir="next"]:hover svg { transform: translateX(-3px); }
   .news-btn svg { transition: transform .3s ease; }
   .news-btn:hover { background: #dbe2ea; }
-  .news-btn.is-primary { color: #fff; background: #071f3d; border-color: #071f3d; box-shadow: 0 12px 26px -12px rgba(7,31,61,.6); }
-  .news-btn.is-primary:hover { background: #1167b1; }
+  .news-btn.is-primary { color: #fff; background: #1167b1; border-color: #1167b1; box-shadow: 0 10px 24px -12px rgba(17,103,177,.65); }
+  .news-btn.is-primary:hover { background: #0b2d55; border-color: #0b2d55; }
   .news-btn:disabled { opacity: .4; pointer-events: none; }
   .news-dots { display: flex; gap: 6px; align-items: center; }
   .news-dots i { cursor: pointer; width: 6px; height: 6px; border-radius: 9999px; background: #c9d4e1; transition: width .35s ease, background .35s ease; }
@@ -397,10 +449,8 @@
   .job-tags { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
   .job-tags span { padding: 6px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600; background: rgba(17,103,177,.09); color: #1167b1; }
   .job-navy .job-tags span { background: rgba(255,255,255,.1); color: #9fd6ff; }
-  .job-cta { margin-top: 18px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 9999px; font-size: 14px; font-weight: 600; background: #071f3d; color: #fff; transition: background .3s, transform .3s; }
+  .job-cta { margin-top: 18px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 9999px; font-size: 14px; font-weight: 600; background: #3fa9f5; color: #fff; box-shadow: 0 10px 24px -12px rgba(63,169,245,.8); transition: background .3s, transform .3s; }
   .job-cta:hover { background: #1167b1; }
-  .job-navy .job-cta { background: #fff; color: #071f3d; }
-  .job-navy .job-cta:hover { background: #dcebfa; }
   .job-photo { border-radius: 20px; overflow: hidden; min-height: 100%; background: #dbe2ea; }
   .job-photo img { width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 767px) {
@@ -499,8 +549,12 @@
 <!-- ============ MOTION OVERLAYS ============ -->
 <div id="preloader" aria-hidden="true">
   <div class="pl-inner">
-    <div class="pl-word" dir="ltr"><span>I</span><span>S</span><span>R</span><span>A</span><span>L</span><span>P</span><span>A</span></div>
-    <div class="pl-sub" dir="ltr"><span>Israeli Air Line Pilots Association</span></div>
+    <svg class="pl-logo" viewBox="0 0 100 100" aria-hidden="true"><use href="#isralpa-mark"/></svg>
+    <div class="pl-wordwrap">
+      <div class="pl-word pl-outline" dir="ltr"><span>I</span><span>S</span><span>R</span><span>A</span><span>L</span><span>P</span><span>A</span></div>
+      <div class="pl-word pl-fill" dir="ltr" aria-hidden="true"><span>I</span><span>S</span><span>R</span><span>A</span><span>L</span><span>P</span><span>A</span></div>
+    </div>
+    <div class="pl-he"><span>האיגוד הארצי לטייסי נתיבי אוויר בישראל</span></div>
     <div class="pl-bar"><i></i></div>
   </div>
   <div class="pl-count" dir="ltr"><span id="plCount">0</span>%</div>
@@ -562,13 +616,31 @@
 
 <!-- ============ GLASS MENU ============ -->
 <div id="menuPanel" class="menu-panel" aria-hidden="true">
-  <div class="relative mx-auto grid min-h-full max-w-7xl gap-12 px-5 pb-12 pt-28 lg:grid-cols-12 lg:items-end lg:px-8 lg:pt-32">
+  <div class="relative mx-auto grid min-h-full max-w-7xl content-center gap-12 px-5 pb-12 pt-28 lg:grid-cols-12 lg:items-center lg:px-8 lg:py-28">
     <nav class="lg:col-span-8" aria-label="ניווט ראשי">
       <ul class="menu-list">
         <li><a href="#top" class="menu-link" style="--i:0"><span class="menu-num">01</span><span class="menu-text">דף הבית</span><span class="menu-thumb" style="background-image:url('MATIRIALS/HERO2.jpg')" aria-hidden="true"></span></a></li>
         <li><a href="#about" class="menu-link" style="--i:1"><span class="menu-num">02</span><span class="menu-text">אודות ומטרות</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1713327023739-fb362e20b96b?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
-        <li><a href="#placement" class="menu-link" style="--i:2"><span class="menu-num">03</span><span class="menu-text">מרכז השמה</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1764547168268-1c8b531bce9f?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
-        <li><a href="#news" class="menu-link" style="--i:3"><span class="menu-num">04</span><span class="menu-text">חדשות ועדכונים</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1724424362395-089675432137?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
+        <li class="has-sub"><a href="#placement" class="menu-link" style="--i:2"><span class="menu-num">03</span><span class="menu-text">מרכז השמה</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1764547168268-1c8b531bce9f?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a>
+        <div class="menu-sub" role="group" aria-label="משרות פתוחות"><div class="menu-sub-inner">
+          <div class="sub-jobs">
+            <a href="#placement" class="sub-job"><img src="https://images.unsplash.com/photo-1698073176073-2259484c87b4?auto=format&fit=crop&w=200&h=150&q=70" alt="" loading="lazy" /><span><b>טייסי מסוקים</b><small>פרויקט באירופה ובאפריקה</small></span></a>
+            <a href="#placement" class="sub-job"><img src="https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?auto=format&fit=crop&w=200&h=150&q=70" alt="" loading="lazy" /><span><b>Senior Analyst</b><small>TASC Consulting & Capital</small></span></a>
+            <a href="#placement" class="sub-job"><img src="https://images.unsplash.com/photo-1769149068959-b11392164add?auto=format&fit=crop&w=200&h=150&q=70" alt="" loading="lazy" /><span><b>מהנדס אלקטרוניקה</b><small>חברה יצרנית בתחום הצבאי</small></span></a>
+          </div>
+          <a href="#placement" class="sub-all">לכל המשרות <span class="sub-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></a>
+        </div></div></li>
+        <li class="has-sub"><a href="#news" class="menu-link" style="--i:3"><span class="menu-num">04</span><span class="menu-text">חדשות ועדכונים</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1724424362395-089675432137?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a>
+        <div class="menu-sub" role="group" aria-label="קטגוריות חדשות"><div class="menu-sub-inner">
+          <div class="sub-cats">
+            <a href="#news" data-news-tab="עדכוני תעופה">עדכוני תעופה <span class="sub-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></a>
+            <a href="#news" data-news-tab="מאמרים מקצועיים">מאמרים מקצועיים <span class="sub-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></a>
+            <a href="#news" data-news-tab="כנסים ואירועים">כנסים ואירועים <span class="sub-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></a>
+            <a href="#news" data-news-tab="טייסים מספרים">טייסים מספרים <span class="sub-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></a>
+            <a href="#news" data-news-tab="תאונות אויריות">תאונות אויריות <span class="sub-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></a>
+            <a href="#news" data-news-tab="מן התקשורת">מן התקשורת <span class="sub-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></a>
+          </div>
+        </div></div></li>
         <li><a href="#media" class="menu-link" style="--i:4"><span class="menu-num">05</span><span class="menu-text">בתקשורת</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1520437358207-323b43b50729?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
         <li><a href="#contact" class="menu-link" style="--i:5"><span class="menu-num">06</span><span class="menu-text">צור קשר</span><span class="menu-thumb" style="background-image:url('https://images.unsplash.com/photo-1698760000166-459acd1e93c8?auto=format&fit=crop&w=440&h=170&q=72')" aria-hidden="true"></span></a></li>
       </ul>
@@ -584,9 +656,12 @@
       </div>
       <div class="glass-card text-sm text-white/75">
         <p class="font-semibold text-white">צור קשר</p>
-        <p class="mt-2 leading-relaxed">רחוב הבעש״ט 6, בניין המכון הגיאופיזי לישראל, אזור התעשייה הצפוני, לוד</p>
-        <p class="mt-2">טלפון: <a href="tel:+97289150694" dir="ltr" class="hover:text-white">08-9150694</a> · פקס: <span dir="ltr">08-9150934</span></p>
-        <p class="mt-1"><a href="mailto:igud@isralpa.org.il" dir="ltr" class="hover:text-white">igud@isralpa.org.il</a></p>
+        <ul class="mt-3 grid gap-2.5 leading-relaxed">
+          <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-[#9fd6ff]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>רחוב הבעש״ט 6, בניין המכון הגיאופיזי לישראל,<br/>אזור התעשייה הצפוני, לוד</span></li>
+          <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-[#9fd6ff]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>טלפון: <a href="tel:+97289150694" dir="ltr" class="hover:text-white">08-9150694</a></span></li>
+          <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-[#9fd6ff]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 9V4h10v5"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6H7z"/></svg><span>פקס: <span dir="ltr">08-9150934</span></span></li>
+          <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-[#9fd6ff]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a href="mailto:igud@isralpa.org.il" dir="ltr" class="hover:text-white">igud@isralpa.org.il</a></li>
+        </ul>
       </div>
     </aside>
   </div>
@@ -617,14 +692,14 @@
         של <span class="text-shimmer">טייסי ישראל.</span>
       </h1>
       <p class="mt-7 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
-        ארגון טייסי חברות התעופה בישראל פועל לקידום בטיחות הטיסה, לשמירה על מעמדו המקצועי של הטייס ולרווחת חברי הארגון.
+        ארגון טייסי חברות התעופה בישראל פועל לקידום בטיחות הטיסה,<br class="hidden sm:block" /> לשמירה על מעמדו המקצועי של הטייס ולרווחת חברי הארגון.
       </p>
       <div class="mt-10 flex flex-wrap items-center gap-4">
         <a href="#about" data-magnetic class="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-base font-semibold text-navy-900 shadow-lift transition hover:bg-sky-mist">
           הכירו את הארגון
           <svg class="transition-transform group-hover:-translate-x-1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
         </a>
-        <a href="#placement" data-magnetic class="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-4 text-base font-semibold text-white backdrop-blur transition hover:bg-white/10">
+        <a href="#placement" data-magnetic class="inline-flex items-center gap-2 rounded-full bg-sky-light px-7 py-4 text-base font-semibold text-white shadow-[0_10px_24px_-12px_rgba(63,169,245,.8)] transition hover:bg-sky-brand">
           מרכז השמה
         </a>
       </div>
@@ -874,7 +949,7 @@
         מרכז ההשמה של הארגון מחבר בין טייסים לבין הזדמנויות תעסוקה בארץ ובעולם – משרות פתוחות, הגשת קורות חיים וליווי מקצועי.
       </p>
       <div class="mt-9 flex flex-wrap justify-center gap-4">
-        <a href="#placement" class="rounded-full bg-sky-brand px-7 py-4 font-semibold text-white shadow-[0_10px_24px_-12px_rgba(17,103,177,.65)] transition hover:bg-navy-800">למשרות הפתוחות</a>
+        <a href="#placement" class="rounded-full bg-white px-7 py-4 font-semibold text-sky-brand shadow-[0_10px_24px_-14px_rgba(7,31,61,.35)] transition hover:bg-sky-light hover:text-white">למשרות הפתוחות</a>
         <a href="#contact" class="rounded-full bg-sky-light px-7 py-4 font-semibold text-white shadow-[0_10px_24px_-12px_rgba(63,169,245,.8)] transition hover:bg-sky-brand">הגשת קורות חיים</a>
       </div>
     </div>
@@ -1261,9 +1336,9 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
           </div>
           <h3 class="mt-6 text-2xl font-bold">אזור חברים</h3>
-          <p class="mt-3 leading-relaxed text-white/75">גישה למסמכים, הסכמים, הודעות פנימיות ושירותים ייעודיים לחברי הארגון.</p>
+          <p class="mt-3 leading-relaxed text-white/75">גישה למסמכים, הסכמים, הודעות פנימיות ושירותים <span class="whitespace-nowrap">ייעודיים לחברי הארגון.</span></p>
           <a href="#login" class="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 font-semibold text-navy-900 transition hover:bg-sky-mist">
-            כניסה לאזור האישי
+            כניסת חברים
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
           </a>
         </div>
@@ -1327,11 +1402,16 @@
 
 <!-- ============ FOOTER ============ -->
 <footer class="bg-navy-950 text-white/60">
-  <div data-anim="stagger" class="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-5 lg:px-8">
+  <div data-anim="stagger" class="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-6 lg:px-8">
     <div class="lg:col-span-2">
       <p class="flex items-center gap-3 font-latin text-xl font-bold text-white"><svg width="40" height="40" aria-hidden="true"><use href="#isralpa-mark"/></svg>ISRALPA</p>
-      <p class="mt-2 text-sm">ארגון טייסי חברות התעופה בישראל</p>
-      <p class="mt-6 max-w-sm text-sm leading-relaxed">מחויבים לבטיחות הטיסה, למקצועיות ולרווחת הטייסים – בישראל ובעולם.</p>
+      <p class="mt-2 text-sm">האיגוד הארצי לטייסי נתיבי אוויר בישראל</p>
+      <p class="mt-6 text-sm font-semibold text-white">אודות</p>
+      <p class="mt-2 max-w-[18rem] text-sm leading-relaxed">האיגוד הארצי לטייסי נתיבי אוויר בישראל הוקם כאגודה בשנת 1976. זהו איגוד עובדים מקצועי, החבר במעמד עצמאי בארגון ההסתדרות החדשה, באגף לאיגוד מקצועי. האיגוד הישראלי חבר בפדרציה הבינלאומית של איגודי הטייסים IFALPA, ופועל במישור הבינלאומי בנושאים רבים הקשורים לתעופה מסחרית.</p>
+      <a href="#about" class="group mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-light transition hover:text-white">
+        קרא עוד
+        <svg class="transition-transform group-hover:-translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </a>
     </div>
     <div>
       <p class="text-sm font-semibold text-white">ניווט</p>
@@ -1361,11 +1441,25 @@
         <li><a class="transition hover:text-white" href="#news" data-news-tab="מן התקשורת">מן התקשורת</a></li>
       </ul>
     </div>
+    <div class="lg:col-span-1">
+      <p class="text-sm font-semibold text-white">פרטי התקשרות</p>
+      <ul class="mt-4 grid gap-3 text-sm leading-relaxed">
+        <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-sky-light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>רחוב הבעש״ט 6, בניין המכון הגיאופיזי לישראל, אזור התעשייה הצפוני, לוד</span></li>
+        <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-sky-light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a class="transition hover:text-white" href="tel:+97289150694" dir="ltr">08-9150694</a></li>
+        <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-sky-light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 9V4h10v5"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6H7z"/></svg><span>פקס: <span dir="ltr">08-9150934</span></span></li>
+        <li class="flex gap-2.5"><svg class="mt-0.5 shrink-0 text-sky-light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a class="transition hover:text-white" href="mailto:igud@isralpa.org.il" dir="ltr">igud@isralpa.org.il</a></li>
+      </ul>
+      <div class="mt-5 flex gap-2.5">
+        <a href="#" aria-label="פייסבוק" class="grid h-9 w-9 place-items-center rounded-lg bg-white/10 text-white transition hover:bg-sky-brand"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21z"/></svg></a>
+        <a href="#" aria-label="אינסטגרם" class="grid h-9 w-9 place-items-center rounded-lg bg-white/10 text-white transition hover:bg-sky-brand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
   </div>
   <div class="border-t border-white/10">
-    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-6 text-xs lg:px-8">
-      <p>© <span id="year"></span> ISRALPA. כל הזכויות שמורות.</p>
+    <div class="mx-auto grid max-w-7xl items-center gap-3 px-5 py-6 text-center text-xs md:grid-cols-3 md:gap-4 lg:px-8">
+      <p class="md:text-right">© <span id="year"></span> ISRALPA. כל הזכויות שמורות.</p>
       <p><a href="#" class="hover:text-white">הצהרת נגישות</a> · <a href="#" class="hover:text-white">מדיניות פרטיות</a></p>
+      <p class="md:text-left">בניית אתרים | קידום אתרים | ניהול מוניטין | <span class="font-semibold text-white/80" dir="ltr">WebXp</span></p>
     </div>
   </div>
 </footer>
@@ -1373,6 +1467,21 @@
 <!-- ============ UI SCRIPTS ============ -->
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // preloader: spread the Hebrew line so it is exactly as wide as the "ISRALPA" wordmark
+  const fitPreloaderLine = () => {
+    const he = document.querySelector('.pl-he span'), letters = document.querySelectorAll('.pl-outline span');
+    if (!he || !letters.length || !he.offsetParent) return;
+    he.style.letterSpacing = '0px'; he.style.marginLeft = '0px';
+    const word = letters[letters.length - 1].getBoundingClientRect().right - letters[0].getBoundingClientRect().left;
+    const chars = [...he.textContent].length;
+    const ls = Math.max(0, (word - he.getBoundingClientRect().width) / (chars - 1));
+    he.style.letterSpacing = ls + 'px';
+    he.style.marginLeft = -ls + 'px';                                // cancel the trailing spacing after the last letter
+  };
+  fitPreloaderLine();
+  document.fonts && document.fonts.ready.then(fitPreloaderLine);
+  addEventListener('resize', fitPreloaderLine);
 
   // real page width without the scrollbar (100vw includes it) - used by full-bleed blocks
   const setPageW = () => document.documentElement.style.setProperty('--page-w', document.documentElement.clientWidth + 'px');
@@ -1391,6 +1500,9 @@
     menuBtn.setAttribute('aria-label', open ? 'סגירת תפריט' : 'פתיחת תפריט');
     menuPanel.setAttribute('aria-hidden', !open);
     menuLabel.textContent = open ? 'סגירה' : 'תפריט';
+    clearTimeout(setMenu.t);
+    if (open) setMenu.t = setTimeout(() => document.body.classList.add('menu-ready'), 1200);
+    else document.body.classList.remove('menu-ready');
     if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
     else document.documentElement.style.overflow = open ? 'hidden' : '';
   }
@@ -1948,12 +2060,14 @@
 
   // ---------- Intro timeline ----------
   const plCount = $('#plCount');
+  const plFill = $('.pl-fill');
   const counter = { v: 0 };
   const intro = gsap.timeline({ defaults: { ease: EASE } });
   intro
-    .from('.pl-word span', { yPercent: 110, duration: 1, stagger: .055 })
-    .from('.pl-sub span', { yPercent: 110, duration: .9 }, .25)
-    .to(counter, { v: 100, duration: 1.6, ease: 'power2.inOut', onUpdate: () => plCount.textContent = Math.round(counter.v) }, .1)
+    .from('.pl-logo', { scale: .5, rotate: -25, opacity: 0, duration: 1.1, ease: 'back.out(1.6)' })
+    .from('.pl-word span', { yPercent: 110, duration: 1, stagger: i => (i % 7) * .055 }, .2) // outline + fill letters move as pairs
+    .from('.pl-he span', { yPercent: 110, duration: .9 }, .35)
+    .to(counter, { v: 100, duration: 1.6, ease: 'power2.inOut', onUpdate: () => { plCount.textContent = Math.round(counter.v); plFill && (plFill.style.clipPath = `inset(${(100 - counter.v).toFixed(1)}% 0 0 0)`); } }, .1)
     .to('.pl-bar i', { scaleX: 1, duration: 1.6, ease: 'power2.inOut' }, .1)
     .to('.pl-inner', { yPercent: -40, opacity: 0, duration: .6, ease: 'power3.in' })
     .to(['.pl-count', '.pl-mark'], { opacity: 0, duration: .4 }, '<')
